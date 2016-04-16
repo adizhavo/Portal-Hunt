@@ -5,7 +5,7 @@ public static class MathCalc
 {
     public static DirectionVector GetTouchDistance(Transform fromPos)
     {
-        GetTouchDistance(fromPos.position);
+        return GetTouchDistance(fromPos.position);
     }
 
     public static DirectionVector GetTouchDistance(Vector3 fromPos)
