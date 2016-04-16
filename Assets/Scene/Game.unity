@@ -269,11 +269,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02dddaac5eda4b1cbf0b4c259b8c8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinMaxAngles: {x: 30, y: 150}
-  MinDistanceOfTouch: 1
-  MaxDragDistance: 4
-  ShootForceMultiplier: 2
-  FactoryCallCode: ShootParticle
+  minMaxAngles: {x: 30, y: 150}
+  minDistanceOfTouch: 1
+  maxDragDistance: 3
+  shootForceMultiplier: 2
+  factoryCallCode: ShootParticle
 --- !u!1 &644639533
 GameObject:
   m_ObjectHideFlags: 0
