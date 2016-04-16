@@ -1,2 +1,8 @@
 Library
 Temp
+*.csproj
+*.sln
+*.userprefs
+*.txt
+*.dll
+obj/Debug
