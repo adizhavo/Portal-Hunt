@@ -301,12 +301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bde9926e7de46848a2e420473381ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveZone:
-    serializedVersion: 2
-    x: -5
-    y: -1
-    width: 10
-    height: 3
+  percentagePos:
+    LeftMarginPercentage: 10
+    RightMarginPercentage: 90
+    UpperMarginPercentage: 70
+    BottomMarginPercentage: 30
   minDistToChange: 1
   rotationSpeed: 0.01
   movementSpeed: 0.5

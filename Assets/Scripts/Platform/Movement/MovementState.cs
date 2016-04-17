@@ -69,8 +69,9 @@ public class PositionChooser : IFrameStates
 
     private Vector2 SelectPositionInZone()
     {
-        MinMaxValuesHolder minMaxHorizontalPos = new MinMaxValuesHolder(platform.MoveZone.x, platform.MoveZone.x + platform.MoveZone.width);
-        MinMaxValuesHolder minMaxVerticalPos = new MinMaxValuesHolder(platform.MoveZone.y, platform.MoveZone.y + platform.MoveZone.height);
+        MinMaxValuesHolder minMaxHorizontalPos = platform.HorizontalBoundaries;
+        MinMaxValuesHolder minMaxVerticalPos = platform.VerticalBoundaries;
+
         float xRandomPos = Random.Range(minMaxHorizontalPos.min, minMaxHorizontalPos.max);
         float yRandomPos = Random.Range(minMaxVerticalPos.min, minMaxVerticalPos.max);
 

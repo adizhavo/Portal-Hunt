@@ -34,6 +34,11 @@ public static class MathCalc
         float AngleRad = Mathf.Atan2(diffVect.y, diffVect.x);
         return (180 / Mathf.PI) * AngleRad;
     }
+
+    public static Vector3 GetWorldPos(Vector2 screenPercentagePos)
+    {
+        return Camera.main.ViewportToWorldPoint(new Vector3(screenPercentagePos.x / 100f, screenPercentagePos.y / 100f));
+    }
 }
 
 [System.Serializable]
