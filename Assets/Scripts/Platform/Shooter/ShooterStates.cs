@@ -32,12 +32,16 @@ public class DetectTouchPos : IShootStates
 public class AimDragger : IShootStates
 {
     private PlatformShoot platform;
+    private ShooterTrajectory shootTraject;
     private DirectionVector shootDirValues;
     private Vector3 DeltaMove;
 
     public AimDragger(PlatformShoot platform)
     {
         this.platform = platform;
+
+        shootTraject = ShooterTrajectory.GetShooterTrajectory();
+        SetNewShootDirection();
     }
 
     public void ShootFrameCheck()
@@ -49,6 +53,7 @@ public class AimDragger : IShootStates
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            shootTraject.Disable();
             DirectionVector shVal = new DirectionVector(-1 * shootDirValues.direction, shootDirValues.magnitudeOfDir);
             platform.ChangeShooterState(new ObjectShooter(platform, ref shVal));
         }
@@ -58,10 +63,13 @@ public class AimDragger : IShootStates
     {
         DirectionVector currentCalcDir = MathCalc.GetTouchDistance(platform.Position);
         MathCalc.ClampVectMagnitude(ref currentCalcDir, platform.MaxDragDistance);
+
         if (!IsAngleOutRange(currentCalcDir))
         {
             shootDirValues = currentCalcDir;
         }
+
+        shootTraject.Calculate(shootDirValues, platform.ShootForceMultiplier);
     }
 
     private bool IsAngleOutRange(DirectionVector currentCalcDir)
