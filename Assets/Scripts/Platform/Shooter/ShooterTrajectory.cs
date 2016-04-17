@@ -11,6 +11,7 @@ public class ShooterTrajectory
     private int Samples = 5;
 
     private static ShooterTrajectory instance;
+
     public static ShooterTrajectory GetShooterTrajectory()
     {
         if (instance == null)
@@ -39,14 +40,14 @@ public class ShooterTrajectory
         }
     }
 
-    public void Calculate(DirectionVector shootVect, float forceMultiplier)
+    public void Calculate(DirectionVector shootVect, Vector2 platformPos, float forceMultiplier)
     {
         DirectionVector shVect = new DirectionVector(-1 * shootVect.direction * forceMultiplier, shootVect.magnitudeOfDir);
 
         for (int index = 0; index < trajectoryPos.Length; index++)
         {
             Vector2 shootDir = shVect.direction * Time.fixedDeltaTime * SampleInterval;
-            Vector2 calcDir = (index == 0) ? shootDir : trajectoryPos[index - 1] + shootDir;
+            Vector2 calcDir = (index == 0) ? platformPos + shootDir : trajectoryPos[index - 1] + shootDir;
             trajectoryPos[index] = calcDir;
             trajectoryTr[index].position = (Vector3)calcDir;
 

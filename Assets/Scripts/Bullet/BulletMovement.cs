@@ -5,9 +5,10 @@ public class BulletMovement : MonoBehaviour {
 
     protected DirectionVector dirShoot;
 
-    public void SetDirection(DirectionVector dirShoot)
+    public void SetDirection(DirectionVector dirShoot, Vector3 initialPos)
     {
         this.dirShoot = dirShoot;
+        this.transform.position = initialPos;
     }
 
     protected void Update()

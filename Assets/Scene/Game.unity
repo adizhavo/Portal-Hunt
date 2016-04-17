@@ -238,6 +238,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 583230882}
   - 114: {fileID: 583230883}
+  - 114: {fileID: 583230885}
+  - 114: {fileID: 583230884}
   m_Layer: 0
   m_Name: PlayerPlatform
   m_TagString: Untagged
@@ -269,11 +271,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02dddaac5eda4b1cbf0b4c259b8c8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMaxAngles: {x: 30, y: 150}
+  minMaxAngles:
+    min: 30
+    max: 150
   minDistanceOfTouch: 1
-  maxDragDistance: 3
+  maxDragDistance: 4
   shootForceMultiplier: 2
   factoryCallCode: ShootParticle
+--- !u!114 &583230884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583230881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44d4d2cc1c094919a1d059c8b0cbe72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementControl: {fileID: 583230885}
+--- !u!114 &583230885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583230881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bde9926e7de46848a2e420473381ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveZone:
+    serializedVersion: 2
+    x: -5
+    y: -1
+    width: 10
+    height: 3
+  minDistToChange: 1
+  rotationSpeed: 0.01
+  movementSpeed: 0.5
 --- !u!1 &644639533
 GameObject:
   m_ObjectHideFlags: 0

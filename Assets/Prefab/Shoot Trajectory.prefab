@@ -24,7 +24,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 447112}
-  - 114: {fileID: 11469428}
   m_Layer: 0
   m_Name: Shoot Trajectory
   m_TagString: Untagged
@@ -57,17 +56,6 @@ Transform:
   - {fileID: 411166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11469428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 197132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d242f991d7840bfb9e01d0a11ab2fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21279632
 SpriteRenderer:
   m_ObjectHideFlags: 1

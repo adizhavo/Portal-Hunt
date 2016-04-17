@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatformShoot : MonoBehaviour
+public class PlatformShoot : FrameStateObject
 {
     #region Public Fields
-    public Vector3 Position { get { return transform.position; } }
-
-    public Vector2 MinMaxAngles { get { return minMaxAngles; } }
+    public MinMaxValuesHolder MinMaxAngles { get { return minMaxAngles; } }
 
     public float MinDistanceOfTouch { get { return minDistanceOfTouch; } }
 
@@ -17,34 +15,17 @@ public class PlatformShoot : MonoBehaviour
     public string FactoryCallCode { get { return factoryCallCode; } }
     #endregion
 
-    #region Private Fields
-    [SerializeField] protected Vector2 minMaxAngles;
+    #region Protected Fields
+    [SerializeField] protected MinMaxValuesHolder minMaxAngles;
     [SerializeField] protected float minDistanceOfTouch;
     [SerializeField] protected float maxDragDistance;
     [SerializeField] protected float shootForceMultiplier;
     [SerializeField] protected string factoryCallCode = "ShootParticle";
     #endregion
 
-    protected IShootStates currentState;
-
-    private void Awake()
+    protected override void InitializeStates()
     {
-        InitializeStates();
-    }
-
-    private void Update()
-    {
-        currentState.ShootFrameCheck();
-    }
-
-    protected virtual void InitializeStates()
-    {
-        currentState = new DetectTouchPos(this);
-    }
-
-    public void ChangeShooterState(IShootStates newState)
-    {
-        currentState = newState;
+        currentState = new FirstTouch(this);
     }
 
     public void Shoot(DirectionVector dirVect)
@@ -62,7 +43,7 @@ public class PlatformShoot : MonoBehaviour
         if (bullet != null)
         {
             DirectionVector multipliedDirVect = new DirectionVector(dirVect.direction * shootForceMultiplier);
-            bullet.SetDirection(multipliedDirVect);
+            bullet.SetDirection(multipliedDirVect, transform.position);
         }
         else
         {

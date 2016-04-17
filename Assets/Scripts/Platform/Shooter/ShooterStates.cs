@@ -1,42 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IShootStates
+public interface IFrameStates
 {
-    void ShootFrameCheck();
+    void StateFrameCheck();
 }
 
-public class DetectTouchPos : IShootStates
+public class FirstTouch : IFrameStates
 {
     private PlatformShoot platform;
 
-    public DetectTouchPos(PlatformShoot platformTr)
+    public FirstTouch(PlatformShoot platformTr)
     {
         this.platform = platformTr;
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            float touchDistance = MathCalc.GetTouchDistance(platform.Position).magnitudeOfDir;
+            float touchDistance = MathCalc.GetTouchDistance(platform.Position2D).magnitudeOfDir;
 
             if (touchDistance < platform.MinDistanceOfTouch)
             {
-                platform.ChangeShooterState(new AimDragger(platform));
+                platform.ChangeState(new TouchDragAim(platform));
             }
         }
     }
 }
 
-public class AimDragger : IShootStates
+public class TouchDragAim : IFrameStates
 {
     private PlatformShoot platform;
     private ShooterTrajectory shootTraject;
-    private DirectionVector shootDirValues;
+    private DirectionVector shootDir;
     private Vector3 DeltaMove;
 
-    public AimDragger(PlatformShoot platform)
+    public TouchDragAim(PlatformShoot platform)
     {
         this.platform = platform;
 
@@ -44,7 +44,7 @@ public class AimDragger : IShootStates
         SetNewShootDirection();
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
         if (Input.GetMouseButton(0))
         {
@@ -54,59 +54,59 @@ public class AimDragger : IShootStates
         else if (Input.GetMouseButtonUp(0))
         {
             shootTraject.Disable();
-            DirectionVector shVal = new DirectionVector(-1 * shootDirValues.direction, shootDirValues.magnitudeOfDir);
-            platform.ChangeShooterState(new ObjectShooter(platform, ref shVal));
+            DirectionVector shVal = new DirectionVector(-1 * shootDir.direction, shootDir.magnitudeOfDir);
+            platform.ChangeState(new TouchReleaseShooter(platform, ref shVal));
         }
     }
 
     private void SetNewShootDirection()
     {
-        DirectionVector currentCalcDir = MathCalc.GetTouchDistance(platform.Position);
-        MathCalc.ClampVectMagnitude(ref currentCalcDir, platform.MaxDragDistance);
+        DirectionVector calcShootDir = MathCalc.GetTouchDistance(platform.Position2D);
+        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
 
-        if (!IsAngleOutRange(currentCalcDir))
+        if (!IsAngleOutRange(calcShootDir))
         {
-            shootDirValues = currentCalcDir;
+            shootDir = calcShootDir;
         }
 
-        shootTraject.Calculate(shootDirValues, platform.ShootForceMultiplier);
+        shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
     }
 
-    private bool IsAngleOutRange(DirectionVector currentCalcDir)
+    private bool IsAngleOutRange(DirectionVector calcShootDir)
     {
-        float currentAngle = Vector2.Angle(Vector2.right, (Vector2)platform.Position + currentCalcDir.direction);
+        float currentAngle = Vector2.Angle(Vector2.right, calcShootDir.direction);
 
-        bool isOut = (platform.Position.y < currentCalcDir.direction.y
-            || currentAngle > platform.MinMaxAngles.y
-            || currentAngle < platform.MinMaxAngles.x);
+        bool isOut = (platform.Position2D.y < calcShootDir.direction.y
+            || currentAngle > platform.MinMaxAngles.max
+            || currentAngle < platform.MinMaxAngles.min);
 
         return isOut;
     }
 
-    private void DebugDragVector()
+    protected virtual void DebugDragVector()
     {
         #if UNITY_EDITOR
 
-        Debug.DrawLine(platform.Position, platform.Position + (Vector3)shootDirValues.direction, Color.yellow);
+        Debug.DrawLine(platform.Position2D, platform.Position2D + shootDir.direction, Color.yellow);
 
         #endif
     }
 }
 
-public class ObjectShooter : IShootStates
+public class TouchReleaseShooter : IFrameStates
 {
     private PlatformShoot platform;
     private DirectionVector shootDirValues;
 
-    public ObjectShooter(PlatformShoot platform, ref DirectionVector shootDirValues)
+    public TouchReleaseShooter(PlatformShoot platform, ref DirectionVector shootDirValues)
     {
         this.platform = platform;
         this.shootDirValues = shootDirValues;
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
         platform.Shoot(shootDirValues);
-        platform.ChangeShooterState(new DetectTouchPos(platform));
+        platform.ChangeState(new FirstTouch(platform));
     }
 }
