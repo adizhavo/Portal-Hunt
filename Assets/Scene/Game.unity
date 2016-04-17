@@ -274,6 +274,7 @@ MonoBehaviour:
   minMaxAngles:
     min: 30
     max: 150
+  freeTouch: 1
   minDistanceOfTouch: 1
   maxDragDistance: 4
   shootForceMultiplier: 2
