@@ -58,6 +58,11 @@ public struct DirectionVector
         this.direction = worldTouchPos;
         this.magnitudeOfDir = direction.magnitude;
     }
+
+    public Vector2 InvertedDirection()
+    {
+        return -1 * direction;
+    }
 }
 
 [System.Serializable]

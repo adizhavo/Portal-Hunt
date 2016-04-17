@@ -42,7 +42,7 @@ public class ShooterTrajectory
 
     public void Calculate(DirectionVector shootVect, Vector2 platformPos, float forceMultiplier)
     {
-        DirectionVector shVect = new DirectionVector(-1 * shootVect.direction * forceMultiplier, shootVect.magnitudeOfDir);
+        DirectionVector shVect = new DirectionVector(shootVect.InvertedDirection() * forceMultiplier, shootVect.magnitudeOfDir);
 
         for (int index = 0; index < trajectoryPos.Length; index++)
         {

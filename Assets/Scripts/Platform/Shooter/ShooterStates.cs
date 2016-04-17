@@ -54,7 +54,7 @@ public class TouchDragAim : IFrameStates
         else if (Input.GetMouseButtonUp(0))
         {
             shootTraject.Disable();
-            DirectionVector shVal = new DirectionVector(-1 * shootDir.direction, shootDir.magnitudeOfDir);
+            DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
             platform.ChangeState(new TouchReleaseShooter(platform, ref shVal));
         }
     }
@@ -68,15 +68,20 @@ public class TouchDragAim : IFrameStates
         {
             shootDir = calcShootDir;
         }
+        else
+        {
+            shootDir.direction = new Vector2(calcShootDir.direction.x, shootDir.direction.y);
+        }
 
         shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
     }
 
     private bool IsAngleOutRange(DirectionVector calcShootDir)
     {
+        float sign = Mathf.Sign(Vector3.Cross(Vector2.right, calcShootDir.direction).z);
         float currentAngle = Vector2.Angle(Vector2.right, calcShootDir.direction);
 
-        bool isOut = (platform.Position2D.y < calcShootDir.direction.y
+        bool isOut = (sign > 0
             || currentAngle > platform.MinMaxAngles.max
             || currentAngle < platform.MinMaxAngles.min);
 
