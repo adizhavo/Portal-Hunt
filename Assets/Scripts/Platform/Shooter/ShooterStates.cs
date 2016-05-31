@@ -11,6 +11,7 @@ public class FirstTouch : IFrameStates
     private PlatformShoot platform;
     private float minTimeHold = .2f;
     private float timePressed;
+    private Vector3 firstTouchedPos;
 
     public FirstTouch(PlatformShoot platformTr)
     {
@@ -20,14 +21,18 @@ public class FirstTouch : IFrameStates
 
     public void StateFrameCheck()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            firstTouchedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else if (Input.GetMouseButton(0))
         {
             timePressed += Time.deltaTime;
-            float touchDistance = MathCalc.GetTouchDistance(platform.Position2D).magnitudeOfDir;
+            float touchDistance = MathCalc.GetTouchDistance(firstTouchedPos).magnitudeOfDir;
 
             if (touchDistance < platform.MinDistanceOfTouch || (platform.FreeTouch && timePressed > minTimeHold))
             {
-                platform.ChangeState(new TouchDragAim(platform));
+                platform.ChangeState(new TouchDragAim(platform, firstTouchedPos));
             }
         }
         else if (Input.GetMouseButtonUp(0) && platform.FreeTouch)
@@ -43,12 +48,14 @@ public class TouchDragAim : IFrameStates
     private ShooterTrajectory shootTraject;
     private DirectionVector shootDir;
     private Vector3 DeltaMove;
+    private Vector2 targetPosition;
 
-    public TouchDragAim(PlatformShoot platform)
+    public TouchDragAim(PlatformShoot platform, Vector2 targetPos)
     {
         this.platform = platform;
+        this.targetPosition = targetPos;
 
-        shootTraject = ShooterTrajectory.GetShooterTrajectory();
+        shootTraject = ShooterTrajectory.Instance();
         SetNewShootDirection();
     }
 
@@ -69,7 +76,7 @@ public class TouchDragAim : IFrameStates
 
     private void SetNewShootDirection()
     {
-        DirectionVector calcShootDir = MathCalc.GetTouchDistance(platform.Position2D);
+        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
         MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
 
         if (!IsAngleOutRange(calcShootDir))

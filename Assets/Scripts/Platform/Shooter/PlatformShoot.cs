@@ -50,7 +50,7 @@ public class PlatformShoot : FrameStateObject
         }
         else
         {
-            Debug.LogWarning("You tried to shoot not a bullet, check you call to the factory!");
+            Debug.LogWarning("You tried to shoot not a bullet, check your call to the factory!");
         }
     }
 }
