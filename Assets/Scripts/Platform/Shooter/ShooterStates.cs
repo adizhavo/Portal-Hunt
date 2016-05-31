@@ -9,14 +9,11 @@ public interface IFrameStates
 public class FirstTouch : IFrameStates
 {
     private PlatformShoot platform;
-    private float minTimeHold = .2f;
-    private float timePressed;
     private Vector3 firstTouchedPos;
 
     public FirstTouch(PlatformShoot platformTr)
     {
         this.platform = platformTr;
-        timePressed = 0;
     }
 
     public void StateFrameCheck()
@@ -27,17 +24,11 @@ public class FirstTouch : IFrameStates
         }
         else if (Input.GetMouseButton(0) && IsTouchAtRightPosition())
         {
-            timePressed += Time.deltaTime;
             float touchDistance = MathCalc.GetTouchDistance(firstTouchedPos).magnitudeOfDir;
-
-            if (touchDistance < platform.MinDistanceOfTouch || (platform.FreeTouch && timePressed > minTimeHold))
+            if (touchDistance > platform.MinDistanceOfTouch)
             {
                 platform.ChangeState(new TouchDragAim(platform, firstTouchedPos));
             }
-        }
-        else if (Input.GetMouseButtonUp(0) && platform.FreeTouch)
-        {
-            timePressed = 0;
         }
     }
 

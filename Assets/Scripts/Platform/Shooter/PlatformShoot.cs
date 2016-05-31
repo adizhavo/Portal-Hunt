@@ -12,8 +12,6 @@ public class PlatformShoot : FrameStateObject
     #region Public Fields
     public MinMaxValuesHolder MinMaxAngles { get { return minMaxAngles; } }
 
-    public bool FreeTouch { get { return freeTouch; } }
-
     public float MinDistanceOfTouch { get { return minDistanceOfTouch; } }
 
     public float MaxDragDistance { get { return maxDragDistance; } }
@@ -28,7 +26,6 @@ public class PlatformShoot : FrameStateObject
 
     #region Protected Fields
     [SerializeField] protected MinMaxValuesHolder minMaxAngles;
-    [SerializeField] protected bool freeTouch;
     [SerializeField] protected float minDistanceOfTouch;
     [SerializeField] protected float maxDragDistance;
     [SerializeField] protected float shootForceMultiplier;
