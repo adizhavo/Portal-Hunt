@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 411166}
   - 212: {fileID: 21279632}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 447112}
   - 114: {fileID: 11469428}
   m_Layer: 0
-  m_Name: ShootedParticle
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
