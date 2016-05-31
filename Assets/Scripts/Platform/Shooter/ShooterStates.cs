@@ -25,7 +25,7 @@ public class FirstTouch : IFrameStates
         {
             firstTouchedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0) && IsTouchAtRightPosition())
         {
             timePressed += Time.deltaTime;
             float touchDistance = MathCalc.GetTouchDistance(firstTouchedPos).magnitudeOfDir;
@@ -39,6 +39,16 @@ public class FirstTouch : IFrameStates
         {
             timePressed = 0;
         }
+    }
+
+    private bool IsTouchAtRightPosition()
+    {
+        int touchPos = (int)Camera.main.WorldToScreenPoint(firstTouchedPos).x;
+
+        if (touchPos - Screen.width/2 > 0 && platform.ShooterPosition.Equals(Position.Right)) return true;
+        if (touchPos - Screen.width/2 < 0 && platform.ShooterPosition.Equals(Position.Left)) return true;
+
+        return false;
     }
 }
 

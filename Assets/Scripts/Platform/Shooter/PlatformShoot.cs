@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum Position
+{
+    Left, 
+    Right
+}
+
 public class PlatformShoot : FrameStateObject
 {
     #region Public Fields
@@ -15,6 +21,9 @@ public class PlatformShoot : FrameStateObject
     public float ShootForceMultiplier { get { return shootForceMultiplier; } }
 
     public string FactoryCallCode { get { return factoryCallCode; } }
+
+    // Setted in the editor or throught code
+    public Position ShooterPosition;
     #endregion
 
     #region Protected Fields
