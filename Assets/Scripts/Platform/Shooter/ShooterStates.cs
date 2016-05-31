@@ -80,7 +80,7 @@ public class TouchDragAim : IFrameStates
         DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
         MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
 
-        if (!IsAngleOutRange(calcShootDir))
+        if (!IsAngleOutRange(calcShootDir) && IsMinDisatnceOfShot(calcShootDir.magnitudeOfDir))
         {
             shootDir = calcShootDir;
         }
@@ -102,6 +102,12 @@ public class TouchDragAim : IFrameStates
             || currentAngle < platform.MinMaxAngles.min);
 
         return isOut;
+    }
+
+    private bool IsMinDisatnceOfShot(float currentDistance)
+    {
+        float touchDistance = currentDistance;
+        return touchDistance > platform.MinDistanceOfTouch;
     }
 
     protected virtual void DebugDragVector()
