@@ -50,12 +50,14 @@ public class TouchDragAim : IFrameStates
     private DirectionVector shootDir;
     private Vector3 DeltaMove;
     private Vector2 targetPosition;
+    private DragGizmos dragGizmos;
 
     public TouchDragAim(PlatformShoot platform, Vector2 targetPos)
     {
         this.platform = platform;
         this.targetPosition = targetPos;
 
+        dragGizmos = platform.GetGizmos();
         shootTraject = ShooterTrajectory.Instance();
         SetNewShootDirection();
     }
@@ -70,6 +72,8 @@ public class TouchDragAim : IFrameStates
         else if (Input.GetMouseButtonUp(0))
         {
             shootTraject.Disable();
+            dragGizmos.Release();
+
             DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
             platform.ChangeState(new TouchReleaseShooter(platform, ref shVal));
         }
@@ -80,7 +84,8 @@ public class TouchDragAim : IFrameStates
         DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
         MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
 
-        if (!IsAngleOutRange(calcShootDir) && IsMinDisatnceOfShot(calcShootDir.magnitudeOfDir))
+        bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
+        if (isAllowedShoot)
         {
             shootDir = calcShootDir;
         }
@@ -90,21 +95,16 @@ public class TouchDragAim : IFrameStates
         }
 
         shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
+        dragGizmos.PositionObject(targetPosition, targetPosition + calcShootDir.direction);
+        dragGizmos.SetState(isAllowedShoot);
     }
 
-    private bool IsAngleOutRange(DirectionVector calcShootDir)
+    private bool IsInAllowedShootPosition(Vector2 fingerPos)
     {
-        float sign = Mathf.Sign(Vector3.Cross(Vector2.right, calcShootDir.direction).z);
-        float currentAngle = Vector2.Angle(Vector2.right, calcShootDir.direction);
-
-        bool isOut = (sign > 0
-            || currentAngle > platform.MinMaxAngles.max
-            || currentAngle < platform.MinMaxAngles.min);
-
-        return isOut;
+        return fingerPos.y < - platform.MinDistanceOfTouch;
     }
 
-    private bool IsMinDisatnceOfShot(float currentDistance)
+    private bool IsMinDistanceOfShot(float currentDistance)
     {
         float touchDistance = currentDistance;
         return touchDistance > platform.MinDistanceOfTouch;
@@ -114,7 +114,7 @@ public class TouchDragAim : IFrameStates
     {
         #if UNITY_EDITOR
 
-        Debug.DrawLine(platform.Position2D, platform.Position2D + shootDir.direction, Color.yellow);
+        Debug.DrawLine(targetPosition, targetPosition + shootDir.direction, Color.yellow);
 
         #endif
     }

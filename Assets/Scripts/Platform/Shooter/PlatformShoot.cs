@@ -10,26 +10,26 @@ public enum Position
 public class PlatformShoot : FrameStateObject
 {
     #region Public Fields
-    public MinMaxValuesHolder MinMaxAngles { get { return minMaxAngles; } }
-
     public float MinDistanceOfTouch { get { return minDistanceOfTouch; } }
 
     public float MaxDragDistance { get { return maxDragDistance; } }
 
     public float ShootForceMultiplier { get { return shootForceMultiplier; } }
 
-    public string FactoryCallCode { get { return factoryCallCode; } }
+    public string BulletCallCode { get { return bulletCallCode; } }
+
+    public string DragGizmosCallCode { get { return dragGizmosCallCode; } }
 
     // Setted in the editor or throught code
     public Position ShooterPosition;
     #endregion
 
     #region Protected Fields
-    [SerializeField] protected MinMaxValuesHolder minMaxAngles;
     [SerializeField] protected float minDistanceOfTouch;
     [SerializeField] protected float maxDragDistance;
     [SerializeField] protected float shootForceMultiplier;
-    [SerializeField] protected string factoryCallCode = "ShootParticle";
+    [SerializeField] protected string bulletCallCode = "Bullet";
+    [SerializeField] protected string dragGizmosCallCode = "DragGizmos";
     #endregion
 
     protected override void InitializeStates()
@@ -39,11 +39,11 @@ public class PlatformShoot : FrameStateObject
 
     public void Shoot(DirectionVector dirVect)
     {
-        GameObject particle = ObjectFactory.Instance.CreateObjectCode(FactoryCallCode) as GameObject;
+        GameObject bullet = ObjectFactory.Instance.CreateObjectCode(BulletCallCode) as GameObject;
 
-        if (particle != null)
+        if (bullet != null)
         {
-            ShootBullet(particle.GetComponent<BulletMovement>(), dirVect);
+            ShootBullet(bullet.GetComponent<BulletMovement>(), dirVect);
         }
     }
 
@@ -58,5 +58,17 @@ public class PlatformShoot : FrameStateObject
         {
             Debug.LogWarning("You tried to shoot not a bullet, check your call to the factory!");
         }
+    }
+
+    public DragGizmos GetGizmos()
+    {
+        GameObject gizmos = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
+
+        if (gizmos != null)
+        {
+            return gizmos.GetComponent<DragGizmos>();
+        }
+
+        return null;
     }
 }
