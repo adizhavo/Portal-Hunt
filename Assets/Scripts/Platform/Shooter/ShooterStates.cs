@@ -58,7 +58,7 @@ public class TouchDragAim : IFrameStates
         this.targetPosition = targetPos;
 
         dragGizmos = platform.GetGizmos();
-        shootTraject = ShooterTrajectory.Instance();
+        shootTraject = new ShooterTrajectory();
         SetNewShootDirection();
     }
 

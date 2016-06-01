@@ -10,20 +10,7 @@ public class ShooterTrajectory
     private float SampleInterval = 5f;
     private int Samples = 5;
 
-    private static ShooterTrajectory instance;
-
-    public static ShooterTrajectory Instance()
-    {
-        if (instance == null)
-        {
-            instance = new ShooterTrajectory();
-        }
-
-        instance.ActivateTrajectories();
-        return instance;
-    }
-
-    private ShooterTrajectory()
+    public ShooterTrajectory()
     {
         trajectoryPos = new Vector2[Samples];
         trajectoryTr = new Transform[Samples];
