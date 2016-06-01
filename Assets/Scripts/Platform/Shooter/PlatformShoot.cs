@@ -16,8 +16,6 @@ public class PlatformShoot : FrameStateObject
 
     public float ShootForceMultiplier { get { return shootForceMultiplier; } }
 
-    public string BulletCallCode { get { return bulletCallCode; } }
-
     public string DragGizmosCallCode { get { return dragGizmosCallCode; } }
 
     // Setted in the editor or throught code
@@ -25,10 +23,10 @@ public class PlatformShoot : FrameStateObject
     #endregion
 
     #region Protected Fields
+    [SerializeField] private BulletContainer bulletContainer;
     [SerializeField] protected float minDistanceOfTouch;
     [SerializeField] protected float maxDragDistance;
     [SerializeField] protected float shootForceMultiplier;
-    [SerializeField] protected string bulletCallCode = "Bullet";
     [SerializeField] protected string dragGizmosCallCode = "DragGizmos";
     #endregion
 
@@ -37,22 +35,14 @@ public class PlatformShoot : FrameStateObject
         currentState = new FirstTouch(this);
     }
 
-    public void Shoot(DirectionVector dirVect)
+    public virtual void Shoot(DirectionVector dirVect)
     {
-        GameObject bullet = ObjectFactory.Instance.CreateObjectCode(BulletCallCode) as GameObject;
+        Bullet bullet = bulletContainer.GetAvailableBullet();
 
-        if (bullet != null)
-        {
-            ShootBullet(bullet.GetComponent<BulletMovement>(), dirVect);
-        }
-    }
-
-    protected virtual void ShootBullet(BulletMovement bullet, DirectionVector dirVect)
-    {
         if (bullet != null)
         {
             DirectionVector multipliedDirVect = new DirectionVector(dirVect.direction * shootForceMultiplier);
-            bullet.SetDirection(multipliedDirVect, transform.position);
+            bullet.Shoot(multipliedDirVect, transform.position);
         }
         else
         {
