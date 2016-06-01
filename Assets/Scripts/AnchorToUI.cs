@@ -7,7 +7,7 @@ public class AnchorToUI : MonoBehaviour {
 
     private void Awake()
     {
-        transform.position = AnchoredTransform.position;
+        transform.GetComponent<Rigidbody2D>().position = AnchoredTransform.position;
     }
 
     #if UNITY_EDITOR
