@@ -34,13 +34,13 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public GameObject GetObjectInPool()
+    public GameObject GetObjectInPool(bool activate = true)
     {
         for (int index = 0; index < PoolSize; index++)
         {
             if (!Pool[index].activeSelf)
             {
-                Pool[index].SetActive(true);
+                Pool[index].SetActive(activate);
                 return Pool[index];
             }
         }
