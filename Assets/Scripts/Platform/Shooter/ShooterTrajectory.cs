@@ -14,6 +14,8 @@ public class ShooterTrajectory
     {
         trajectoryPos = new Vector2[Samples];
         trajectoryTr = new Transform[Samples];
+
+        ActivateTrajectories();
     }
 
     private void ActivateTrajectories()
