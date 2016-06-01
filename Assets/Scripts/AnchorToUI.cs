@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class AnchorToUI : MonoBehaviour {
 
     [SerializeField] private Transform AnchoredTransform;
 
-    private void Awake()
+    private IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
         transform.position = AnchoredTransform.position;
     }
 
@@ -14,7 +16,7 @@ public class AnchorToUI : MonoBehaviour {
 
     private void LateUpdate()
     {
-        Awake();
+        transform.position = AnchoredTransform.position;
     }
 
     #endif
