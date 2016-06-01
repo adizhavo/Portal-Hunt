@@ -16,7 +16,6 @@ public class BulletContainer : MonoBehaviour
         {
             if (Bullets[i].IsReleased())
             {
-                Bullets[i].Setup();
                 return Bullets[i];
             }
         }
@@ -54,7 +53,7 @@ public class BulletContainer : MonoBehaviour
         {
             if (Bullets[i].IsReleased())
             {
-                Bullets[i].transform.position = transform.position + new Vector3(counter * xOffset, yOffset, 0f);
+                Bullets[i].RigidBody.position = transform.position + new Vector3(counter * xOffset, yOffset, 0f);
                 counter ++;
             }
         }

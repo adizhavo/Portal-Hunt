@@ -6,29 +6,35 @@ public class BulletMovement
     public bool PhysicsDisabled = true;
 
     protected DirectionVector dirShoot;
-    protected Transform bulletTr;
+    protected Rigidbody2D bulletRgB;
+
+    public Rigidbody2D BulletRgB
+    {
+        get { return bulletRgB; }
+    }
 
     public BulletMovement(Transform bulletTr)
     {
-        this.bulletTr = bulletTr;
+        this.bulletRgB = bulletTr.GetComponent<Rigidbody2D>();
     }
 
     public void SetDirection(DirectionVector dirShoot, Vector3 initialPos)
     {
         this.dirShoot = dirShoot;
-        bulletTr.position = initialPos;
+        bulletRgB.position = initialPos;
     }
+
 
     public void FrameUpdate()
     {
-        if (PhysicsDisabled) return;
+        if (bulletRgB.isKinematic) return;
 
         CalculateCurrentPos();
     }
 
     protected virtual void CalculateCurrentPos()
     {
-        bulletTr.position += (Vector3)(dirShoot.direction * Time.deltaTime);
+        bulletRgB.position += dirShoot.direction * Time.deltaTime;
         dirShoot.direction += Physics2D.gravity * Time.deltaTime;
     }
 }

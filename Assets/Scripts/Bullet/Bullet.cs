@@ -2,35 +2,37 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour, Stoppable {
-    
+
+    public Rigidbody2D RigidBody
+    {
+        get { return movement.BulletRgB; }
+    }
+
     protected enum State
     {
         Ready, 
         Fired,
         Cooldown
     }
-    protected State currentBulletState = State.Ready;
+    protected State currentBulletState;
 
+//    [HideInInspector] public Rigidbody2D BulletRgB;
     private BulletMovement movement;
-    private float timeWait = 0f;
 
-    public void Setup()
-    {
-        movement.PhysicsDisabled = false;
-        gameObject.SetActive(true);
-    }
+    private float timeWait = 0f;
 
     public void Shoot(DirectionVector direction, Vector3 initialPos)
     {
-        movement.SetDirection(direction, initialPos);
         currentBulletState = State.Fired;
+        movement.BulletRgB.isKinematic = false;
+        movement.SetDirection(direction, initialPos);
     }
 
     public void StopForSec(float sec)
     {
         timeWait += sec;
         currentBulletState = State.Cooldown;
-        movement.PhysicsDisabled = false; 
+        movement.BulletRgB.isKinematic = true;
     }
 
     public bool IsReleased()
@@ -41,6 +43,15 @@ public class Bullet : MonoBehaviour, Stoppable {
     private void Awake()
     {
         movement = new BulletMovement(transform);
+
+        Setup();
+    }
+
+    private void Setup()
+    {
+        gameObject.SetActive(true);
+        currentBulletState = State.Ready;
+        movement.BulletRgB.isKinematic = true;
     }
 
     private void Update()
@@ -59,6 +70,7 @@ public class Bullet : MonoBehaviour, Stoppable {
             {
                 timeWait = 0f;
                 currentBulletState = State.Ready;
+                // Call event
             }
         }
     }
