@@ -14,7 +14,7 @@ public class BulletContainer : MonoBehaviour
     {
         for (int i = 0; i < ContainerSize; i++)
         {
-            if (Bullets[i].IsReady())
+            if (Bullets[i].IsReleased())
             {
                 Bullets[i].Setup();
                 return Bullets[i];
@@ -52,7 +52,7 @@ public class BulletContainer : MonoBehaviour
 
         for (int i = 0; i < Bullets.Length; i ++)
         {
-            if (Bullets[i].IsReady())
+            if (Bullets[i].IsReleased())
             {
                 Bullets[i].transform.position = transform.position + new Vector3(counter * xOffset, yOffset, 0f);
                 counter ++;

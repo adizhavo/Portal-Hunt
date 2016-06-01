@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour, Stoppable {
     
     protected enum State
     {
@@ -26,14 +26,14 @@ public class Bullet : MonoBehaviour {
         currentBulletState = State.Fired;
     }
 
-    public void WaitTime(float time)
+    public void StopForSec(float sec)
     {
-        timeWait += time;
+        timeWait += sec;
         currentBulletState = State.Cooldown;
         movement.PhysicsDisabled = false; 
     }
 
-    public bool IsReady()
+    public bool IsReleased()
     {
         return currentBulletState.Equals(State.Ready);
     }
@@ -62,5 +62,4 @@ public class Bullet : MonoBehaviour {
             }
         }
     }
-
 }
