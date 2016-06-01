@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour, Stoppable {
     }
     protected State currentBulletState;
 
-//    [HideInInspector] public Rigidbody2D BulletRgB;
+    [SerializeField] public CooldownGizmos CooldDown;
     private BulletMovement movement;
 
     private float timeWait = 0f;
@@ -33,6 +33,8 @@ public class Bullet : MonoBehaviour, Stoppable {
         timeWait += sec;
         currentBulletState = State.Cooldown;
         movement.BulletRgB.isKinematic = true;
+
+        CooldDown.StartGizmo(timeWait);
     }
 
     public bool IsReleased()
@@ -72,6 +74,8 @@ public class Bullet : MonoBehaviour, Stoppable {
                 currentBulletState = State.Ready;
                 // Call event
             }
+
+            CooldDown.UpdateValue(timeWait);
         }
     }
 }
