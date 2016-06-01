@@ -44,10 +44,12 @@ public class PlatformShoot : FrameStateObject
             DirectionVector multipliedDirVect = new DirectionVector(dirVect.direction * shootForceMultiplier);
             bullet.Shoot(multipliedDirVect, transform.position);
         }
+        #if UNITY_EDITOR
         else
         {
-            Debug.LogWarning("You tried to shoot not a bullet, check your call to the factory!");
+            Debug.LogWarning("You tried to shoot not a bullet, check your call to the factory or maybe the pool size..");
         }
+        #endif
     }
 
     public DragGizmos GetGizmos()
