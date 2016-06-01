@@ -440,6 +440,7 @@ GameObject:
   - 114: {fileID: 583230883}
   - 114: {fileID: 583230885}
   - 114: {fileID: 583230884}
+  - 114: {fileID: 583230886}
   m_Layer: 0
   m_Name: PlayerPlatform B
   m_TagString: Untagged
@@ -472,10 +473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShooterPosition: 1
+  bulletContainer: {fileID: 583230886}
   minDistanceOfTouch: 2
   maxDragDistance: 5
   shootForceMultiplier: 2
-  bulletCallCode: Bullet
   dragGizmosCallCode: DragGizmos
 --- !u!114 &583230884
 MonoBehaviour:
@@ -508,6 +509,19 @@ MonoBehaviour:
   minDistToChange: 1
   rotationSpeed: 0.01
   movementSpeed: 0.5
+--- !u!114 &583230886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583230881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe816eba2c4794b2799274c9c78bbcda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ContainerSize: 5
+  bulletCallCode: Bullet
 --- !u!1 &598084382
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +827,7 @@ GameObject:
   - 114: {fileID: 1042543640}
   - 114: {fileID: 1042543639}
   - 114: {fileID: 1042543638}
+  - 114: {fileID: 1042543642}
   m_Layer: 0
   m_Name: PlayerPlatform A
   m_TagString: Untagged
@@ -863,10 +878,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShooterPosition: 0
+  bulletContainer: {fileID: 1042543642}
   minDistanceOfTouch: 2
   maxDragDistance: 5
   shootForceMultiplier: 2
-  bulletCallCode: Bullet
   dragGizmosCallCode: DragGizmos
 --- !u!4 &1042543641
 Transform:
@@ -881,6 +896,19 @@ Transform:
   - {fileID: 348818428}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &1042543642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1042543637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe816eba2c4794b2799274c9c78bbcda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ContainerSize: 5
+  bulletCallCode: Bullet
 --- !u!1 &1244372708
 GameObject:
   m_ObjectHideFlags: 0
