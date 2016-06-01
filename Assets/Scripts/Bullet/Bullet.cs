@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour {
     {
         timeWait += time;
         currentBulletState = State.Cooldown;
+        movement.PhysicsDisabled = false; 
     }
 
     public bool IsReady()
@@ -58,7 +59,6 @@ public class Bullet : MonoBehaviour {
             {
                 timeWait = 0f;
                 currentBulletState = State.Ready;
-                movement.PhysicsDisabled = false;
             }
         }
     }
