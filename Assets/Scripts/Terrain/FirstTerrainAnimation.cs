@@ -26,6 +26,7 @@ public class FirstTerrainAnimation : TerrainAnimation {
             LeanTween.scale(StartCube, Vector3.one * 2, 0.5f).setEase(LeanTweenType.easeInOutBounce).setOnComplete(
                 () => 
                 {
+                    CameraShake.Instance.DoShake();
                     LeanTween.scale(Wing1, Vector3.one * 2, 0.3f).setEase(LeanTweenType.easeOutBack);
                     LeanTween.scale(Wing2, Vector3.one * 2, 0.3f).setEase(LeanTweenType.easeOutBack).setOnComplete(
                         () => 
