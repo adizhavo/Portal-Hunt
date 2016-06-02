@@ -8,7 +8,7 @@ public abstract class FrameStateObject : MonoBehaviour
 
     protected IFrameStates currentState;
 
-    private void Awake()
+    private void Start()
     {
         InitializeStates();
     }

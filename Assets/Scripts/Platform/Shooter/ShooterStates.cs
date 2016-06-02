@@ -9,7 +9,8 @@ public interface IFrameStates
 public class FirstTouch : IFrameStates
 {
     private PlatformShoot platform;
-    private Vector3 firstTouchedPos;
+    private Vector2 firstTouchedPos;
+    private DragGizmos dragGizmos;
 
     public FirstTouch(PlatformShoot platformTr)
     {
@@ -18,18 +19,33 @@ public class FirstTouch : IFrameStates
 
     public void StateFrameCheck()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) )
         {
-            firstTouchedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            firstTouchedPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (IsTouchAtRightPosition())
+            {
+                dragGizmos = platform.GetGizmos();
+                ValidateCurrentTouch();
+            }
         }
         else if (Input.GetMouseButton(0) && IsTouchAtRightPosition())
         {
-            float touchDistance = MathCalc.GetTouchDistance(firstTouchedPos).magnitudeOfDir;
-            if (touchDistance > platform.MinDistanceOfTouch)
-            {
-                platform.ChangeState(new TouchDragAim(platform, firstTouchedPos));
-            }
+            ValidateCurrentTouch();
         }
+        else if (Input.GetMouseButtonUp(0) && IsTouchAtRightPosition())
+        {
+            dragGizmos.Release();
+        }
+    }
+
+    private void ValidateCurrentTouch()
+    {
+        DirectionVector currentTouch = MathCalc.GetTouchDistance(firstTouchedPos);
+        DrawGizmos(currentTouch);
+
+        if (IsDragValid(currentTouch))
+            platform.ChangeState(new TouchDragAim(platform, firstTouchedPos, dragGizmos));
     }
 
     private bool IsTouchAtRightPosition()
@@ -40,6 +56,17 @@ public class FirstTouch : IFrameStates
         if (touchPos - Screen.width/2 < 0 && platform.ShooterPosition.Equals(Position.Left)) return true;
 
         return false;
+    }
+
+    private bool IsDragValid(DirectionVector currentTouch)
+    {
+        return currentTouch.magnitudeOfDir > platform.MinDistanceOfTouch && currentTouch.direction.y < - platform.MinDistanceOfTouch;
+    }
+
+    private void DrawGizmos(DirectionVector currentTouch)
+    {
+        dragGizmos.PositionObject(firstTouchedPos, firstTouchedPos + currentTouch.direction);
+        dragGizmos.SetState(false);
     }
 }
 
@@ -52,12 +79,12 @@ public class TouchDragAim : IFrameStates
     private Vector2 targetPosition;
     private DragGizmos dragGizmos;
 
-    public TouchDragAim(PlatformShoot platform, Vector2 targetPos)
+    public TouchDragAim(PlatformShoot platform, Vector2 targetPos, DragGizmos dragGizmos)
     {
         this.platform = platform;
         this.targetPosition = targetPos;
+        this.dragGizmos = dragGizmos;
 
-        dragGizmos = platform.GetGizmos();
         shootTraject = new ShooterTrajectory();
         SetNewShootDirection();
     }
@@ -106,8 +133,7 @@ public class TouchDragAim : IFrameStates
 
     private bool IsMinDistanceOfShot(float currentDistance)
     {
-        float touchDistance = currentDistance;
-        return touchDistance > platform.MinDistanceOfTouch;
+        return currentDistance > platform.MinDistanceOfTouch;
     }
 
     protected virtual void DebugDragVector()
