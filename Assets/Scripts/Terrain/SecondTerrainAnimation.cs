@@ -20,7 +20,7 @@ public class SecondTerrainAnimation : TerrainAnimation {
             SecondBlock.transform.localScale = new Vector3(0f, 2f, 1f);
 
             scaleObject = SecondBlock;
-            LeanTween.scaleX(scaleObject, 3.8f, 0.3f).setEase(LeanTweenType.easeOutBack);
+            LeanTween.scaleX(scaleObject, 3.3f, 0.3f).setEase(LeanTweenType.easeOutBack);
             CameraShake.Instance.DoShake();
 
             timerCounter = 0f;
@@ -46,7 +46,7 @@ public class SecondTerrainAnimation : TerrainAnimation {
         {
             LeanTween.scaleX(scaleObject, 0f, 0.3f).setEase(LeanTweenType.easeOutBack);
             scaleObject = scaleObject == FirstBlock ? SecondBlock : FirstBlock;
-            LeanTween.scaleX(scaleObject, 3.8f, 0.3f).setEase(LeanTweenType.easeOutBack);
+            LeanTween.scaleX(scaleObject, 3.3f, 0.3f).setEase(LeanTweenType.easeOutBack);
             CameraShake.Instance.DoShake();
 
             timerCounter = 0f;

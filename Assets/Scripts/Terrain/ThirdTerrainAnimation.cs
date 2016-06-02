@@ -26,7 +26,7 @@ public class ThirdTerrainAnimation : TerrainAnimation
     public override void AnimateExit()
     {
         objectRotation.enabled = false;
-        LeanTween.scaleX(Block, 3.3f, 0.3f).setEase(LeanTweenType.easeInBack).setOnComplete(
+        LeanTween.scaleX(Block, 0, 0.3f).setEase(LeanTweenType.easeInBack).setOnComplete(
             () =>
             {
                 gameObject.SetActive(false);
