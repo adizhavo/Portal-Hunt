@@ -197,7 +197,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 66886381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.8925085, y: 1, z: 90}
+  m_LocalPosition: {x: 8.90625, y: 1, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1914405020}
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c668d662a88f9478998933699d6d5ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: -20
+  RotationSpeed: 20
 --- !u!114 &484703373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,7 +1740,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 768465047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.8925085, y: 1, z: 90}
+  m_LocalPosition: {x: -8.90625, y: 1, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1914405020}
@@ -2831,8 +2831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2abdd8e4d0744b398e46a62cd96ef7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShakeIntensity: 0.03
-  ShakeDecay: 0.003
+  ShakeIntensity: 0.01
+  ShakeDecay: 0.001
 --- !u!20 &1942025088
 Camera:
   m_ObjectHideFlags: 0
