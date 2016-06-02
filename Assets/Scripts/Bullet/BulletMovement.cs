@@ -1,23 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletMovement : MonoBehaviour {
+public class BulletMovement
+{
+    public bool PhysicsDisabled = true;
 
     protected DirectionVector dirShoot;
+    protected Rigidbody2D bulletRgB;
 
-    public void SetDirection(DirectionVector dirShoot)
+    public Rigidbody2D BulletRgB
     {
-        this.dirShoot = dirShoot;
+        get { return bulletRgB; }
     }
 
-    protected void Update()
+    public BulletMovement(Transform bulletTr)
     {
+        this.bulletRgB = bulletTr.GetComponent<Rigidbody2D>();
+    }
+
+    public void SetDirection(DirectionVector dirShoot, Vector3 initialPos)
+    {
+        this.dirShoot = dirShoot;
+        bulletRgB.position = initialPos;
+    }
+
+
+    public void FrameUpdate()
+    {
+        if (bulletRgB.isKinematic) return;
+
         CalculateCurrentPos();
     }
 
     protected virtual void CalculateCurrentPos()
     {
-        transform.position += (Vector3)(dirShoot.direction * Time.deltaTime);
+        bulletRgB.position += dirShoot.direction * Time.deltaTime;
         dirShoot.direction += Physics2D.gravity * Time.deltaTime;
     }
 }

@@ -6,3 +6,5 @@ Temp
 *.txt
 *.dll
 obj/Debug
+*.apk
+*.unityproj

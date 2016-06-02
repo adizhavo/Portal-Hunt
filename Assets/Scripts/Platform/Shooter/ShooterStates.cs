@@ -1,46 +1,95 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IShootStates
+public interface IFrameStates
 {
-    void ShootFrameCheck();
+    void StateFrameCheck();
 }
 
-public class DetectTouchPos : IShootStates
+public class FirstTouch : IFrameStates
 {
     private PlatformShoot platform;
+    private Vector2 firstTouchedPos;
+    private DragGizmos dragGizmos;
 
-    public DetectTouchPos(PlatformShoot platformTr)
+    public FirstTouch(PlatformShoot platformTr)
     {
         this.platform = platformTr;
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) )
         {
-            float touchDistance = MathCalc.GetTouchDistance(platform.Position).magnitudeOfDir;
+            firstTouchedPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (touchDistance < platform.MinDistanceOfTouch)
+            if (IsTouchAtRightPosition())
             {
-                platform.ChangeShooterState(new AimDragger(platform));
+                dragGizmos = platform.GetGizmos();
+                ValidateCurrentTouch();
             }
         }
+        else if (Input.GetMouseButton(0) && IsTouchAtRightPosition())
+        {
+            ValidateCurrentTouch();
+        }
+        else if (Input.GetMouseButtonUp(0) && IsTouchAtRightPosition())
+        {
+            dragGizmos.Release();
+        }
+    }
+
+    private void ValidateCurrentTouch()
+    {
+        DirectionVector currentTouch = MathCalc.GetTouchDistance(firstTouchedPos);
+        DrawGizmos(currentTouch);
+
+        if (IsDragValid(currentTouch))
+            platform.ChangeState(new TouchDragAim(platform, firstTouchedPos, dragGizmos));
+    }
+
+    private bool IsTouchAtRightPosition()
+    {
+        int touchPos = (int)Camera.main.WorldToScreenPoint(firstTouchedPos).x;
+
+        if (touchPos - Screen.width/2 > 0 && platform.ShooterPosition.Equals(Position.Right)) return true;
+        if (touchPos - Screen.width/2 < 0 && platform.ShooterPosition.Equals(Position.Left)) return true;
+
+        return false;
+    }
+
+    private bool IsDragValid(DirectionVector currentTouch)
+    {
+        return currentTouch.magnitudeOfDir > platform.MinDistanceOfTouch && currentTouch.direction.y < - platform.MinDistanceOfTouch;
+    }
+
+    private void DrawGizmos(DirectionVector currentTouch)
+    {
+        dragGizmos.PositionObject(firstTouchedPos, firstTouchedPos + currentTouch.direction);
+        dragGizmos.SetState(false);
     }
 }
 
-public class AimDragger : IShootStates
+public class TouchDragAim : IFrameStates
 {
     private PlatformShoot platform;
-    private DirectionVector shootDirValues;
+    private ShooterTrajectory shootTraject;
+    private DirectionVector shootDir;
     private Vector3 DeltaMove;
+    private Vector2 targetPosition;
+    private DragGizmos dragGizmos;
 
-    public AimDragger(PlatformShoot platform)
+    public TouchDragAim(PlatformShoot platform, Vector2 targetPos, DragGizmos dragGizmos)
     {
         this.platform = platform;
+        this.targetPosition = targetPos;
+        this.dragGizmos = dragGizmos;
+
+        shootTraject = new ShooterTrajectory();
+        SetNewShootDirection();
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
         if (Input.GetMouseButton(0))
         {
@@ -49,56 +98,68 @@ public class AimDragger : IShootStates
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            DirectionVector shVal = new DirectionVector(-1 * shootDirValues.direction, shootDirValues.magnitudeOfDir);
-            platform.ChangeShooterState(new ObjectShooter(platform, ref shVal));
+            shootTraject.Disable();
+            dragGizmos.Release();
+
+            DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
+            platform.ChangeState(new TouchReleaseShooter(platform, ref shVal));
         }
     }
 
     private void SetNewShootDirection()
     {
-        DirectionVector currentCalcDir = MathCalc.GetTouchDistance(platform.Position);
-        MathCalc.ClampVectMagnitude(ref currentCalcDir, platform.MaxDragDistance);
-        if (!IsAngleOutRange(currentCalcDir))
+        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
+        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
+
+        bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
+        if (isAllowedShoot)
         {
-            shootDirValues = currentCalcDir;
+            shootDir = calcShootDir;
         }
+        else
+        {
+            shootDir.direction = new Vector2(calcShootDir.direction.x, shootDir.direction.y);
+        }
+
+        shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
+        dragGizmos.PositionObject(targetPosition, targetPosition + calcShootDir.direction);
+        dragGizmos.SetState(isAllowedShoot);
     }
 
-    private bool IsAngleOutRange(DirectionVector currentCalcDir)
+    private bool IsInAllowedShootPosition(Vector2 fingerPos)
     {
-        float currentAngle = Vector2.Angle(Vector2.right, (Vector2)platform.Position + currentCalcDir.direction);
-
-        bool isOut = (platform.Position.y < currentCalcDir.direction.y
-            || currentAngle > platform.MinMaxAngles.y
-            || currentAngle < platform.MinMaxAngles.x);
-
-        return isOut;
+        return fingerPos.y < - platform.MinDistanceOfTouch;
     }
 
-    private void DebugDragVector()
+    private bool IsMinDistanceOfShot(float currentDistance)
+    {
+        return currentDistance > platform.MinDistanceOfTouch;
+    }
+
+    protected virtual void DebugDragVector()
     {
         #if UNITY_EDITOR
 
-        Debug.DrawLine(platform.Position, platform.Position + (Vector3)shootDirValues.direction, Color.yellow);
+        Debug.DrawLine(targetPosition, targetPosition + shootDir.direction, Color.yellow);
 
         #endif
     }
 }
 
-public class ObjectShooter : IShootStates
+public class TouchReleaseShooter : IFrameStates
 {
     private PlatformShoot platform;
     private DirectionVector shootDirValues;
 
-    public ObjectShooter(PlatformShoot platform, ref DirectionVector shootDirValues)
+    public TouchReleaseShooter(PlatformShoot platform, ref DirectionVector shootDirValues)
     {
         this.platform = platform;
         this.shootDirValues = shootDirValues;
     }
 
-    public void ShootFrameCheck()
+    public void StateFrameCheck()
     {
         platform.Shoot(shootDirValues);
-        platform.ChangeShooterState(new DetectTouchPos(platform));
+        platform.ChangeState(new FirstTouch(platform));
     }
 }

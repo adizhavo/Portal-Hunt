@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 411166}
   - 212: {fileID: 21279632}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,9 +24,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 447112}
-  - 114: {fileID: 11469428}
   m_Layer: 0
-  m_Name: ShootedParticle
+  m_Name: Shoot Trajectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 186724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 447112}
   m_RootOrder: 0
@@ -57,17 +56,6 @@ Transform:
   - {fileID: 411166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11469428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 197132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d242f991d7840bfb9e01d0a11ab2fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21279632
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -94,8 +82,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
+  m_Color: {r: 0.6965517, g: 1, b: 0, a: 0.334}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000

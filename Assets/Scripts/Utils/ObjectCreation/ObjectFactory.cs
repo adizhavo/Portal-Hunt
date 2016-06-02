@@ -12,13 +12,13 @@ public class ObjectFactory : MonoBehaviour
         Instance = this;
     }
 
-    public GameObject CreateObjectCode(string PoolCode)
+    public GameObject CreateObjectCode(string PoolCode, bool activate = true)
     {
         for (int pool = 0; pool < Pools.Length; pool++)
         {
             if (PoolCode.Equals(Pools[pool].CallCode))
             {
-                return Pools[pool].Pool.GetObjectInPool();
+                return Pools[pool].Pool.GetObjectInPool(activate);
             }
         }
 
