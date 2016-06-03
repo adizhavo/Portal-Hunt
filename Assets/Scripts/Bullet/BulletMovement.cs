@@ -24,7 +24,6 @@ public class BulletMovement
         bulletRgB.position = initialPos;
     }
 
-
     public void FrameUpdate()
     {
         if (bulletRgB.isKinematic) return;
@@ -34,7 +33,7 @@ public class BulletMovement
 
     protected virtual void CalculateCurrentPos()
     {
-        bulletRgB.position += dirShoot.direction * Time.deltaTime;
-        dirShoot.direction += Physics2D.gravity * Time.deltaTime;
+        bulletRgB.position += dirShoot.direction * Time.fixedDeltaTime;
+        dirShoot.direction += Physics2D.gravity * Time.fixedDeltaTime;
     }
 }

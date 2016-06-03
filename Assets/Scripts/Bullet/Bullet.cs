@@ -59,6 +59,10 @@ public class Bullet : MonoBehaviour, Stoppable {
     private void Update()
     {
         UpdateBulletState();
+    }
+
+    private void FixedUpdate()
+    {
         movement.FrameUpdate();
     }
 
