@@ -10,7 +10,7 @@ public static class MathCalc
 
     public static DirectionVector GetTouchDistance(Vector2 fromPos)
     {
-        Vector2 wordTouchPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 wordTouchPos = (Vector2)Camera.main.ScreenToWorldPoint(TouchInput.TouchPos());
         float touchDistance = Vector2.Distance(fromPos, wordTouchPos);
         return new DirectionVector(wordTouchPos - fromPos, touchDistance);
     }

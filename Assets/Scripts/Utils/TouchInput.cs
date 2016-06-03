@@ -42,4 +42,17 @@ public static class TouchInput
 
         return false;
     }
+
+    public static Vector2 TouchPos()
+    {
+        if (!Multitouch)
+            return (Vector2)Input.mousePosition;
+        else
+        {
+            // TODO : Add multitouch support
+            return Vector2.zero;
+        }
+
+        return Vector2.zero;
+    }
 }

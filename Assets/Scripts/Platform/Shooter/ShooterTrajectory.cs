@@ -14,8 +14,6 @@ public class ShooterTrajectory
     {
         trajectoryPos = new Vector2[Samples];
         trajectoryTr = new Transform[Samples];
-
-        ActivateTrajectories();
     }
 
     private void ActivateTrajectories()
@@ -42,6 +40,11 @@ public class ShooterTrajectory
 
             shVect.direction += (Physics2D.gravity * Time.fixedDeltaTime * SampleInterval);
         }
+    }
+
+    public void Enable()
+    {
+        ActivateTrajectories();
     }
 
     public void Disable()
