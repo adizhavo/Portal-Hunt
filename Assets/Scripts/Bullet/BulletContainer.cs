@@ -45,15 +45,15 @@ public class BulletContainer : MonoBehaviour
 
     private void PositionBulletsToPlatform()
     {
-        float yOffset = - 0.5f;
         float xOffset = 0.3f;
+        float HorizontalDistance = -0.15f;
         int counter = 0;
 
         for (int i = 0; i < Bullets.Length; i ++)
         {
             if (Bullets[i].IsReleased())
             {
-                Bullets[i].RigidBody.position = transform.position + new Vector3(counter * xOffset, yOffset, 0f);
+                Bullets[i].RigidBody.position = transform.position + new Vector3(HorizontalDistance + counter * xOffset, 0f, 0f);
                 counter ++;
             }
         }
