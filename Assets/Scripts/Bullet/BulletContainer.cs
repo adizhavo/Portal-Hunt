@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class BulletContainer : MonoBehaviour 
 {
@@ -13,14 +13,26 @@ public class BulletContainer : MonoBehaviour
     public Bullet GetAvailableBullet()
     {
         for (int i = 0; i < ContainerSize; i++)
-        {
             if (Bullets[i].IsReleased())
-            {
                 return Bullets[i];
-            }
-        }
 
         return null;
+    }
+
+    public float GetBulletCooldown()
+    {
+        List<float> bulletCooldown = new List<float>();
+        List<float> minCooldown = new List<float>();
+
+        for (int i = 0; i < ContainerSize; i++)
+        {
+            bulletCooldown.Add(Bullets[i].CooldownTime);
+            minCooldown.Add(Bullets[i].PreviousCooldown);
+        }
+
+        float calculatedPercentage = 1 - MathCalc.MinOfFloat(bulletCooldown) / MathCalc.MinOfFloat(minCooldown);
+
+        return GetAvailableBullet() != null ? 1 : calculatedPercentage ;
     }
 
     private void Start()

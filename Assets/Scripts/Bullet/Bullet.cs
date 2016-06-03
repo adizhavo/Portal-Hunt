@@ -19,7 +19,16 @@ public class Bullet : MonoBehaviour, Stoppable {
     [SerializeField] public CooldownGizmos CooldDown;
     private BulletMovement movement;
 
-    private float timeWait = 0f;
+    private float colldownTime = 0f;
+    public float CooldownTime
+    {
+        get { return colldownTime; }
+    }
+    private float previousCooldown = 1f;
+    public float PreviousCooldown
+    {
+        get { return previousCooldown; }
+    }
 
     public void Shoot(DirectionVector direction, Vector3 initialPos)
     {
@@ -30,16 +39,24 @@ public class Bullet : MonoBehaviour, Stoppable {
 
     public void StopForSec(float sec)
     {
-        timeWait += sec;
-        currentBulletState = State.Cooldown;
-        movement.BulletRgB.isKinematic = true;
+        colldownTime += sec;
 
-        CooldDown.StartGizmo(timeWait);
+        if (currentBulletState.Equals(State.Fired))
+            previousCooldown = sec;
+        currentBulletState = State.Cooldown;
+
+        movement.BulletRgB.isKinematic = true;
+        CooldDown.StartGizmo(colldownTime);
     }
 
     public bool IsReleased()
     {
         return currentBulletState.Equals(State.Ready);
+    }
+
+    public bool IsInCooldown()
+    {
+        return currentBulletState.Equals(State.Cooldown);
     }
 
     private void Awake()
@@ -70,16 +87,16 @@ public class Bullet : MonoBehaviour, Stoppable {
     {
         if (currentBulletState.Equals(State.Cooldown))
         {
-            if (timeWait > 0f)
-                timeWait -= Time.deltaTime;
+            if (colldownTime > 0f)
+                colldownTime -= Time.deltaTime;
             else
             {
-                timeWait = 0f;
+                colldownTime = 0f;
                 currentBulletState = State.Ready;
-                // Call event
+                // Call event Maybe..
             }
 
-            CooldDown.UpdateValue(timeWait);
+            CooldDown.UpdateValue(colldownTime);
         }
     }
 }
