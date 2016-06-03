@@ -19,7 +19,7 @@ public class FirstTouch : IFrameStates
 
     public void StateFrameCheck()
     {
-        if (Input.GetMouseButtonDown(0) )
+        if (TouchInput.TouchDown())
         {
             firstTouchedPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -29,11 +29,11 @@ public class FirstTouch : IFrameStates
                 ValidateCurrentTouch();
             }
         }
-        else if (Input.GetMouseButton(0) && IsTouchAtRightPosition())
+        else if (TouchInput.Touch() && IsTouchAtRightPosition())
         {
             ValidateCurrentTouch();
         }
-        else if (Input.GetMouseButtonUp(0) && IsTouchAtRightPosition())
+        else if (TouchInput.TouchUp() && IsTouchAtRightPosition())
         {
             dragGizmos.Release();
         }
@@ -91,12 +91,12 @@ public class TouchDragAim : IFrameStates
 
     public void StateFrameCheck()
     {
-        if (Input.GetMouseButton(0))
+        if (TouchInput.Touch())
         {
             SetNewShootDirection();
             DebugDragVector();
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (TouchInput.TouchUp())
         {
             shootTraject.Disable();
             dragGizmos.Release();
