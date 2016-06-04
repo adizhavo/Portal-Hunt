@@ -28,7 +28,6 @@ public class TouchDragAim : IFrameStates
         else if (TouchInput.TouchUp())
         {
             ValidateShoot();
-
             shootTraject.Disable();
             dragGizmos.Release();
         }
@@ -38,12 +37,19 @@ public class TouchDragAim : IFrameStates
     {
         DirectionVector calcShootDir = GetCalculatedShoot();
         shootDir = lerpShootDir ? LerpShootDir(calcShootDir) : calcShootDir;
+        CalculateTrajectory();
+        PositionDragGizmo(calcShootDir);
+    }
 
+    private void CalculateTrajectory()
+    {
         shootTraject.Enable();
         shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
+    }
 
+    private void PositionDragGizmo(DirectionVector calcShootDir)
+    {
         bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
-
         dragGizmos.Enable();
         dragGizmos.SetState(isAllowedShoot);
         dragGizmos.SetDraggableZone(2, 2);
@@ -69,6 +75,7 @@ public class TouchDragAim : IFrameStates
     {
         DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
         MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
+
         if (IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction))
         {
             DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
