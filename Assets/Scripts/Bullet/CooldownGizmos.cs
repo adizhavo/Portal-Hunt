@@ -19,6 +19,9 @@ public class CooldownGizmos : MonoBehaviour {
 
     public virtual void UpdateValue(float currentValue)
     {
+        if (initialValue <= 0f)
+            return;
+        
         ScalePivot.localScale = new Vector3(currentValue / initialValue, 1f, 1f);
     }
 }

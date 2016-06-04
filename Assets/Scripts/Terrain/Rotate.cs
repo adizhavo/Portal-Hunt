@@ -6,6 +6,13 @@ public class Rotate : MonoBehaviour
     [SerializeField] private float RotationSpeed;
     [HideInInspector] public bool rotate = false;
 
+    private int rotationDirection = 1;
+
+    public void SetRotationDirection(bool clockwise)
+    {
+        rotationDirection = clockwise ? 1 : -1;
+    }
+
     private void OnDisable()
     {
         transform.localEulerAngles = Vector3.zero;
@@ -15,6 +22,6 @@ public class Rotate : MonoBehaviour
     {
         if (!rotate) return;
 
-        transform.Rotate( Vector3.forward * RotationSpeed * Time.deltaTime );
+        transform.Rotate( rotationDirection * Vector3.forward * RotationSpeed * Time.deltaTime );
 	}
 }

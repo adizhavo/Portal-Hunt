@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatformCooldown : MonoBehaviour {
+public class PlatformCooldown : MonoBehaviour
+{
 
     public BulletContainer container;
 
@@ -29,12 +30,9 @@ public class PlatformCooldown : MonoBehaviour {
 
     private void SetSpriteColor()
     {
-        if (pivotScale.x <= 0f)
-            sprite.color = HoldColor;
+        if (pivotScale.x >= 1f)
+            sprite.color = ReadyColor;
         else
-            if (pivotScale.x >= 1f)
-                sprite.color = ReadyColor;
-            else
-                sprite.color = RechargingColor;
+            sprite.color = RechargingColor;
     }
 }

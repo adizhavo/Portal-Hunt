@@ -21,10 +21,10 @@ public class Bullet : MonoBehaviour, Stoppable {
     [SerializeField] public CooldownGizmos CooldDown;
     private BulletMovement movement;
 
-    private float colldownTime = 0f;
+    private float cooldownTime = 0f;
     public float CooldownTime
     {
-        get { return colldownTime; }
+        get { return cooldownTime; }
     }
     private float previousCooldown = 1f;
     public float PreviousCooldown
@@ -41,14 +41,14 @@ public class Bullet : MonoBehaviour, Stoppable {
 
     public void StopForSec(float sec)
     {
-        colldownTime += sec;
+        cooldownTime += sec;
 
         if (currentBulletState.Equals(State.Fired))
             previousCooldown = sec;
         currentBulletState = State.Cooldown;
 
         movement.BulletRgB.isKinematic = true;
-        CooldDown.StartGizmo(colldownTime);
+        CooldDown.StartGizmo(CooldownTime);
     }
 
     public bool IsReleased()
@@ -89,16 +89,16 @@ public class Bullet : MonoBehaviour, Stoppable {
     {
         if (currentBulletState.Equals(State.Cooldown))
         {
-            if (colldownTime > 0f)
-                colldownTime -= Time.deltaTime;
+            if (cooldownTime > 0f)
+                cooldownTime -= Time.deltaTime;
             else
             {
-                colldownTime = 0f;
+                cooldownTime = 0f;
                 currentBulletState = State.Ready;
                 // Call event Maybe..
             }
 
-            CooldDown.UpdateValue(colldownTime);
+            CooldDown.UpdateValue(CooldownTime);
         }
     }
 }
