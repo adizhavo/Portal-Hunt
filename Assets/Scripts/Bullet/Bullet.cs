@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour, Stoppable {
 
+    public PlayerType Type;
+
     public Rigidbody2D RigidBody
     {
         get { return movement.BulletRgB; }

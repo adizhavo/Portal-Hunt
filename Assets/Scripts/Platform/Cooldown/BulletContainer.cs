@@ -30,23 +30,24 @@ public class BulletContainer : MonoBehaviour
             minCooldown.Add(Bullets[i].PreviousCooldown);
         }
 
-        float calculatedPercentage = 1 - MathCalc.MinOfFloat(bulletCooldown) / MathCalc.MinOfFloat(minCooldown);
+        float calculatedPercentage = MathCalc.MinOfFloat(bulletCooldown) / MathCalc.MinOfFloat(minCooldown);
 
         return GetAvailableBullet() != null ? 1 : calculatedPercentage ;
     }
 
-    private void Start()
+    public void Init(PlayerType type)
     {
-        FillContainer();
+        FillContainer(type);
     }
 
-    private void FillContainer()
+    private void FillContainer(PlayerType type)
     {
         Bullets = new Bullet[ContainerSize];
 
         for (int i = 0; i < Bullets.Length; i++)
         {
             Bullets[i] = ObjectFactory.Instance.CreateObjectCode(bulletCallCode).GetComponent<Bullet>();
+            Bullets[i].Type = type;
         }
     }
 
