@@ -240,7 +240,7 @@ GameObject:
   - 4: {fileID: 66886382}
   - 61: {fileID: 66886384}
   - 114: {fileID: 66886383}
-  - 114: {fileID: 66886386}
+  - 114: {fileID: 66886385}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -255,7 +255,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 66886381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.891509, y: 1, z: 90}
+  m_LocalPosition: {x: 8.908629, y: 1, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1914405020}
@@ -286,7 +286,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 5.252882}
   serializedVersion: 2
   m_Size: {x: 0.5, y: 19.905766}
---- !u!114 &66886386
+--- !u!114 &66886385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 66886381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 255769159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 8
@@ -1138,7 +1138,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: -Infinity
+  PortalSide: 0
   healthBar: {fileID: 552162368}
+  smallTextCodeCall: SmallFloatingText
+  bigTextCodeCall: BigFloatingText
 --- !u!60 &552162367
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1243,7 +1246,7 @@ GameObject:
   - 4: {fileID: 571287647}
   - 61: {fileID: 571287649}
   - 114: {fileID: 571287648}
-  - 114: {fileID: 571287651}
+  - 114: {fileID: 571287650}
   m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
@@ -1289,7 +1292,7 @@ BoxCollider2D:
   m_Offset: {x: 0.5, y: -0.5}
   serializedVersion: 2
   m_Size: {x: 1, y: 30}
---- !u!114 &571287651
+--- !u!114 &571287650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1297,7 +1300,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 571287646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -2004,7 +2007,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 742103988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 8
@@ -2060,7 +2063,7 @@ GameObject:
   - 4: {fileID: 768465048}
   - 61: {fileID: 768465050}
   - 114: {fileID: 768465049}
-  - 114: {fileID: 768465052}
+  - 114: {fileID: 768465051}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -2075,7 +2078,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 768465047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.891509, y: 1, z: 90}
+  m_LocalPosition: {x: -8.908629, y: 1, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1914405020}
@@ -2106,7 +2109,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 5.252882}
   serializedVersion: 2
   m_Size: {x: 0.5, y: 19.905766}
---- !u!114 &768465052
+--- !u!114 &768465051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2114,7 +2117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 768465047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -2701,7 +2704,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: -Infinity
+  PortalSide: 1
   healthBar: {fileID: 1244372712}
+  smallTextCodeCall: SmallFloatingText
+  bigTextCodeCall: BigFloatingText
 --- !u!60 &1244372711
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2747,7 +2753,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1289129399}
   - 61: {fileID: 1289129402}
-  - 114: {fileID: 1289129401}
+  - 114: {fileID: 1289129400}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -2768,7 +2774,7 @@ Transform:
   - {fileID: 1950134087}
   m_Father: {fileID: 1882321326}
   m_RootOrder: 1
---- !u!114 &1289129401
+--- !u!114 &1289129400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2776,7 +2782,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1289129398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -3155,7 +3161,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1642472521}
   - 61: {fileID: 1642472524}
-  - 114: {fileID: 1642472523}
+  - 114: {fileID: 1642472522}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -3176,7 +3182,7 @@ Transform:
   - {fileID: 148509959}
   m_Father: {fileID: 1882321326}
   m_RootOrder: 0
---- !u!114 &1642472523
+--- !u!114 &1642472522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3184,7 +3190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1642472520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -3687,7 +3693,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1940361813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
@@ -4106,7 +4112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2097079016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StopTime: 5
