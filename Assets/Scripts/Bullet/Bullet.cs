@@ -4,10 +4,26 @@ using System.Collections;
 public class Bullet : MonoBehaviour, Stoppable, Damagable 
 {
     public PlayerType Type {get; set;}
+    public CooldownGizmos CooldDown;
 
     public Rigidbody2D RigidBody
     {
         get { return movement.BulletRgB; }
+    }
+
+    public float Damage
+    {
+        get { return damage; }
+    }
+
+    public float CooldownTime
+    {
+        get { return cooldownTime; }
+    }
+
+    public float PreviousCooldown
+    {
+        get { return previousCooldown; }
     }
 
     protected enum State
@@ -19,24 +35,9 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
     protected State currentBulletState;
 
     private BulletMovement movement;
-
-    [SerializeField] public CooldownGizmos CooldDown;
-    [SerializeField] private float damage = 1f;
-    public float Damage
-    {
-        get { return damage; }
-    }
-
     private float cooldownTime = 0f;
-    public float CooldownTime
-    {
-        get { return cooldownTime; }
-    }
     private float previousCooldown = 1f;
-    public float PreviousCooldown
-    {
-        get { return previousCooldown; }
-    }
+    [SerializeField] private float damage = 1f;
 
     public void BoostDamage(float boostValue)
     {
