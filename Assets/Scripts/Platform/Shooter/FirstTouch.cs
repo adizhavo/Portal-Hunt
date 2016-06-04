@@ -32,6 +32,10 @@ public class FirstTouch : IFrameStates
         {
             ValidateCurrentTouch();
         }
+        else if (TouchInput.TouchUp() && IsTouchAtRightPosition())
+        {
+            dragGizmos.Release();
+        }
     }
 
     private void ValidateCurrentTouch()
