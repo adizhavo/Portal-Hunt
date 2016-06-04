@@ -4,7 +4,6 @@ public class TouchDragAim : IFrameStates
     private PlatformShoot platform;
     private ShooterTrajectory shootTraject;
     private DirectionVector shootDir;
-//    private Vector3 DeltaMove;
     private Vector2 targetPosition;
     private DragGizmos dragGizmos;
 
