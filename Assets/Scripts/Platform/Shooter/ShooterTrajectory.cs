@@ -5,6 +5,7 @@ public class ShooterTrajectory
 {
     private Vector2[] trajectoryPos;
     private Transform[] trajectoryTr;
+    private TrajectoryPoint[] trajectoryPoints;
 
     private string factoryCallCode = "ShootTrajectories";
     private float SampleInterval = 5f;
@@ -14,8 +15,7 @@ public class ShooterTrajectory
     {
         trajectoryPos = new Vector2[Samples];
         trajectoryTr = new Transform[Samples];
-
-        ActivateTrajectories();
+        trajectoryPoints = new TrajectoryPoint[Samples];
     }
 
     private void ActivateTrajectories()
@@ -23,7 +23,10 @@ public class ShooterTrajectory
         for (int tr = 0; tr < trajectoryTr.Length; tr++)
         {
             if (trajectoryTr[tr] == null)
+            {
                 trajectoryTr[tr] = ObjectFactory.Instance.CreateObjectCode(factoryCallCode).transform;
+                trajectoryPoints[tr] = trajectoryTr[tr].GetComponent<TrajectoryPoint>();
+            }
             else
                 trajectoryTr[tr].gameObject.SetActive(true);
         }
@@ -44,11 +47,20 @@ public class ShooterTrajectory
         }
     }
 
+    public void Enable()
+    {
+        ActivateTrajectories();
+    }
+
     public void Disable()
     {
         for (int tr = 0; tr < trajectoryTr.Length; tr++)
-        {
             trajectoryTr[tr].gameObject.SetActive(false);
-        }
+    }
+
+    public void SetPointsState(bool state)
+    {
+        for (int tr = 0; tr < trajectoryTr.Length; tr++)
+            trajectoryPoints[tr].SetState(state);
     }
 }

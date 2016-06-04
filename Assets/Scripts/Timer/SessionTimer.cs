@@ -49,6 +49,7 @@ public class SessionTimer : MonoBehaviour
 	private void Awake () 
     {
         ResetTimer();
+        StartTimer();
 	}
 
 	private void Update () 

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public static class MathCalc
 {
@@ -10,7 +10,7 @@ public static class MathCalc
 
     public static DirectionVector GetTouchDistance(Vector2 fromPos)
     {
-        Vector2 wordTouchPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 wordTouchPos = (Vector2)Camera.main.ScreenToWorldPoint(TouchInput.TouchPos());
         float touchDistance = Vector2.Distance(fromPos, wordTouchPos);
         return new DirectionVector(wordTouchPos - fromPos, touchDistance);
     }
@@ -38,6 +38,17 @@ public static class MathCalc
     public static Vector3 GetWorldPos(Vector2 screenPercentagePos)
     {
         return Camera.main.ViewportToWorldPoint(new Vector3(screenPercentagePos.x / 100f, screenPercentagePos.y / 100f));
+    }
+
+    public static float MinOfFloat(List<float> list)
+    {
+        float min = Mathf.Infinity;
+
+        for (int i = 0; i < list.Count; i ++)
+            if (min > list[i])
+                min = list[i];
+
+        return min;
     }
 }
 

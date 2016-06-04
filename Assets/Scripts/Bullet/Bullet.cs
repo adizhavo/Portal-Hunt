@@ -1,11 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour, Stoppable {
+public class Bullet : MonoBehaviour, Stoppable, Damagable 
+{
+    public PlayerType Type {get; set;}
+    public CooldownGizmos CooldDown;
 
     public Rigidbody2D RigidBody
     {
         get { return movement.BulletRgB; }
+    }
+
+    public float Damage
+    {
+        get { return damage; }
+    }
+
+    public float CooldownTime
+    {
+        get { return cooldownTime; }
+    }
+
+    public float PreviousCooldown
+    {
+        get { return previousCooldown; }
     }
 
     protected enum State
@@ -16,10 +34,15 @@ public class Bullet : MonoBehaviour, Stoppable {
     }
     protected State currentBulletState;
 
-    [SerializeField] public CooldownGizmos CooldDown;
     private BulletMovement movement;
+    private float cooldownTime = 0f;
+    private float previousCooldown = 1f;
+    [SerializeField] private float damage = 1f;
 
-    private float timeWait = 0f;
+    public void BoostDamage(float boostValue)
+    {
+        damage *= boostValue;
+    }
 
     public void Shoot(DirectionVector direction, Vector3 initialPos)
     {
@@ -30,16 +53,24 @@ public class Bullet : MonoBehaviour, Stoppable {
 
     public void StopForSec(float sec)
     {
-        timeWait += sec;
-        currentBulletState = State.Cooldown;
-        movement.BulletRgB.isKinematic = true;
+        cooldownTime += sec;
 
-        CooldDown.StartGizmo(timeWait);
+        if (currentBulletState.Equals(State.Fired))
+            previousCooldown = sec;
+        currentBulletState = State.Cooldown;
+
+        movement.BulletRgB.isKinematic = true;
+        CooldDown.StartGizmo(CooldownTime);
     }
 
     public bool IsReleased()
     {
         return currentBulletState.Equals(State.Ready);
+    }
+
+    public bool IsInCooldown()
+    {
+        return currentBulletState.Equals(State.Cooldown);
     }
 
     private void Awake()
@@ -70,16 +101,16 @@ public class Bullet : MonoBehaviour, Stoppable {
     {
         if (currentBulletState.Equals(State.Cooldown))
         {
-            if (timeWait > 0f)
-                timeWait -= Time.deltaTime;
+            if (cooldownTime > 0f)
+                cooldownTime -= Time.deltaTime;
             else
             {
-                timeWait = 0f;
+                cooldownTime = 0f;
                 currentBulletState = State.Ready;
-                // Call event
+                // Call event Maybe..
             }
 
-            CooldDown.UpdateValue(timeWait);
+            CooldDown.UpdateValue(CooldownTime);
         }
     }
 }
