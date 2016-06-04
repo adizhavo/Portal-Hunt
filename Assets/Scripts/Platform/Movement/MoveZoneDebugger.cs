@@ -5,13 +5,10 @@ using System.Collections;
 [ExecuteInEditMode]
 public class MoveZoneDebugger : MonoBehaviour
 {
-
     [SerializeField] private PlatformMovement movementControl;
 
     private void Update()
     {
-        movementControl.SetWorldBoundaries();
-
         MinMaxValuesHolder horizontal = movementControl.HorizontalBoundaries;
         MinMaxValuesHolder vertical = movementControl.VerticalBoundaries;
 
