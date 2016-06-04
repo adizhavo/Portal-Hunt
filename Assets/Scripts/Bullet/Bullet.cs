@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour, Stoppable {
+public class Bullet : MonoBehaviour, Stoppable, Damagable {
 
     public PlayerType Type;
 
@@ -18,8 +18,14 @@ public class Bullet : MonoBehaviour, Stoppable {
     }
     protected State currentBulletState;
 
-    [SerializeField] public CooldownGizmos CooldDown;
     private BulletMovement movement;
+
+    [SerializeField] public CooldownGizmos CooldDown;
+    [SerializeField] private float damage = 1f;
+    public float Damage
+    {
+        get { return damage; }
+    }
 
     private float cooldownTime = 0f;
     public float CooldownTime
@@ -30,6 +36,11 @@ public class Bullet : MonoBehaviour, Stoppable {
     public float PreviousCooldown
     {
         get { return previousCooldown; }
+    }
+
+    public void BoostDamage(float boostValue)
+    {
+        damage *= boostValue;
     }
 
     public void Shoot(DirectionVector direction, Vector3 initialPos)
