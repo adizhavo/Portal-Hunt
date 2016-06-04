@@ -350,7 +350,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146293042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.56, z: 0}
+  m_LocalPosition: {x: 0, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1532432925}
@@ -895,7 +895,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1175,8 +1175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e4cfe69f6054893ba1c0e8c99ab298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initHp: 5
-  rigeneration: 0.03
+  initHp: 6
+  rigeneration: 0.05
   HealthScaler: {fileID: 2057920530}
 --- !u!1 &557509140
 GameObject:
@@ -1331,7 +1331,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 1244372709}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!212 &576973269
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1357,7 +1357,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1372,7 +1372,6 @@ GameObject:
   - 224: {fileID: 577733395}
   - 223: {fileID: 577733398}
   - 114: {fileID: 577733397}
-  - 114: {fileID: 577733396}
   m_Layer: 0
   m_Name: Timer
   m_TagString: Untagged
@@ -1398,22 +1397,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &577733396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 577733394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &577733397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1504,7 +1487,7 @@ MonoBehaviour:
   ShooterPosition: 1
   bulletContainer: {fileID: 583230886}
   minDistanceOfTouch: 1
-  maxDragDistance: 3
+  maxDragDistance: 2.5
   shootForceMultiplier: 5
   dragGizmosCallCode: DragGizmos
 --- !u!114 &583230884
@@ -1938,7 +1921,7 @@ Transform:
   m_LocalScale: {x: 8, y: 3, z: 5}
   m_Children: []
   m_Father: {fileID: 1244372709}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!212 &737368923
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1964,7 +1947,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2366,7 +2349,7 @@ MonoBehaviour:
   ShooterPosition: 0
   bulletContainer: {fileID: 1042543642}
   minDistanceOfTouch: 1
-  maxDragDistance: 3
+  maxDragDistance: 2.5
   shootForceMultiplier: 5
   dragGizmosCallCode: DragGizmos
 --- !u!4 &1042543641
@@ -2596,7 +2579,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2687,8 +2670,8 @@ Transform:
   m_LocalPosition: {x: 5.5, y: -2.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 737368922}
   - {fileID: 576973268}
+  - {fileID: 737368922}
   - {fileID: 58092025}
   m_Father: {fileID: 644639534}
   m_RootOrder: 1
@@ -2741,8 +2724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e4cfe69f6054893ba1c0e8c99ab298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initHp: 5
-  rigeneration: 0.03
+  initHp: 6
+  rigeneration: 0.05
   HealthScaler: {fileID: 1804877642}
 --- !u!1 &1289129398
 GameObject:
@@ -3834,7 +3817,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -102}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 0, y: 204}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1942359117
@@ -3869,7 +3852,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: mm:ss
+  m_Text: min:sec
 --- !u!222 &1942359118
 CanvasRenderer:
   m_ObjectHideFlags: 0
