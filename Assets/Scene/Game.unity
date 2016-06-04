@@ -95,7 +95,7 @@ GameObject:
   - 4: {fileID: 9962261}
   - 212: {fileID: 9962262}
   m_Layer: 0
-  m_Name: StartCube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,7 @@ GameObject:
   - 4: {fileID: 11707325}
   - 212: {fileID: 11707326}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Gaphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,7 +393,7 @@ GameObject:
   - 4: {fileID: 148509959}
   - 212: {fileID: 148509960}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,7 +450,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 149677951}
   m_Layer: 0
-  m_Name: FirstPivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,7 +565,7 @@ GameObject:
   - 4: {fileID: 240123075}
   - 212: {fileID: 240123076}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,6 +621,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 255769160}
+  - 61: {fileID: 255769162}
+  - 114: {fileID: 255769161}
   m_Layer: 0
   m_Name: Collision Pivot
   m_TagString: Untagged
@@ -641,6 +643,32 @@ Transform:
   - {fileID: 334776831}
   m_Father: {fileID: 500243101}
   m_RootOrder: 2
+--- !u!114 &255769161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 255769159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StopTime: 8
+--- !u!61 &255769162
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 255769159}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1 &334776830
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,10 +678,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 334776831}
   - 212: {fileID: 334776834}
-  - 61: {fileID: 334776833}
-  - 114: {fileID: 334776832}
   m_Layer: 0
-  m_Name: Collision
+  m_Name: Gaphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -671,32 +697,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 255769160}
   m_RootOrder: 0
---- !u!114 &334776832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334776830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StopTime: 8
---- !u!61 &334776833
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334776830}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
 --- !u!212 &334776834
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1000,7 +1000,7 @@ GameObject:
   - 4: {fileID: 500243101}
   - 114: {fileID: 500243102}
   m_Layer: 0
-  m_Name: Rotate
+  m_Name: Rotation Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1459,11 +1459,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 583230882}
+  - 114: {fileID: 583230888}
   - 114: {fileID: 583230883}
   - 114: {fileID: 583230885}
-  - 114: {fileID: 583230884}
-  - 114: {fileID: 583230886}
   - 114: {fileID: 583230887}
+  - 114: {fileID: 583230886}
+  - 114: {fileID: 583230884}
   m_Layer: 0
   m_Name: PlayerPlatform B
   m_TagString: Untagged
@@ -1501,7 +1502,7 @@ MonoBehaviour:
   bulletContainer: {fileID: 583230886}
   minDistanceOfTouch: 1
   maxDragDistance: 3
-  shootForceMultiplier: 4.7
+  shootForceMultiplier: 5
   dragGizmosCallCode: DragGizmos
 --- !u!114 &583230884
 MonoBehaviour:
@@ -1555,7 +1556,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 583230881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c079303a9675b427aa9bc89a030180eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 05f9cd5f8ea25454ba73954b6e81a4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 583230886}
@@ -1564,6 +1565,19 @@ MonoBehaviour:
   HoldColor: {r: 1, g: 1, b: 1, a: 0.191}
   RechargingColor: {r: 1, g: 1, b: 1, a: 1}
   ReadyColor: {r: 1, g: 0.9724138, b: 0, a: 1}
+--- !u!114 &583230888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583230881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f233dbc4efca141ec82812d3bbfcf19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlatformType: 1
+  Container: {fileID: 583230886}
 --- !u!1 &598084382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,10 +1734,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 705567719}
   - 212: {fileID: 705567722}
-  - 61: {fileID: 705567721}
-  - 114: {fileID: 705567720}
   m_Layer: 0
-  m_Name: Collision
+  m_Name: Gaphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1741,32 +1753,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 742103989}
   m_RootOrder: 0
---- !u!114 &705567720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 705567718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StopTime: 8
---- !u!61 &705567721
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 705567718}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
 --- !u!212 &705567722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1954,6 +1940,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 742103989}
+  - 61: {fileID: 742103991}
+  - 114: {fileID: 742103990}
   m_Layer: 0
   m_Name: Collision Pivot
   m_TagString: Untagged
@@ -1974,6 +1962,32 @@ Transform:
   - {fileID: 705567719}
   m_Father: {fileID: 500243101}
   m_RootOrder: 3
+--- !u!114 &742103990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 742103988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccda9e8fbeafb42c79de7847f97f6f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StopTime: 8
+--- !u!61 &742103991
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 742103988}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1 &742631913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,7 +1997,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 742631914}
   m_Layer: 0
-  m_Name: SecondPivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2257,11 +2271,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1042543641}
+  - 114: {fileID: 1042543644}
   - 114: {fileID: 1042543640}
   - 114: {fileID: 1042543639}
-  - 114: {fileID: 1042543638}
-  - 114: {fileID: 1042543642}
   - 114: {fileID: 1042543643}
+  - 114: {fileID: 1042543642}
+  - 114: {fileID: 1042543638}
   m_Layer: 0
   m_Name: PlayerPlatform A
   m_TagString: Untagged
@@ -2315,7 +2330,7 @@ MonoBehaviour:
   bulletContainer: {fileID: 1042543642}
   minDistanceOfTouch: 1
   maxDragDistance: 3
-  shootForceMultiplier: 4.7
+  shootForceMultiplier: 5
   dragGizmosCallCode: DragGizmos
 --- !u!4 &1042543641
 Transform:
@@ -2353,7 +2368,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1042543637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c079303a9675b427aa9bc89a030180eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 05f9cd5f8ea25454ba73954b6e81a4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 1042543642}
@@ -2362,6 +2377,19 @@ MonoBehaviour:
   HoldColor: {r: 1, g: 1, b: 1, a: 0.191}
   RechargingColor: {r: 1, g: 1, b: 1, a: 1}
   ReadyColor: {r: 1, g: 0.9724138, b: 0, a: 1}
+--- !u!114 &1042543644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1042543637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f233dbc4efca141ec82812d3bbfcf19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlatformType: 0
+  Container: {fileID: 1042543642}
 --- !u!1 &1051420046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,7 +2400,7 @@ GameObject:
   - 4: {fileID: 1051420047}
   - 212: {fileID: 1051420048}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2687,7 +2715,7 @@ GameObject:
   - 61: {fileID: 1289129402}
   - 114: {fileID: 1289129401}
   m_Layer: 0
-  m_Name: Rotation Pivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2819,7 +2847,7 @@ GameObject:
   - 4: {fileID: 1407010398}
   - 114: {fileID: 1407010397}
   m_Layer: 0
-  m_Name: Block Terrain
+  m_Name: Defensive Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2833,7 +2861,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1407010396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc572105682034ba2af65037594ddaff, type: 3}
+  m_Script: {fileID: 11500000, guid: f8b755e3a8491474ca7d3ef60834ebbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FirstBlock: {fileID: 1940361813}
@@ -2861,7 +2889,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1413744583}
   m_Layer: 0
-  m_Name: MainPivot
+  m_Name: Start Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2890,7 +2918,7 @@ GameObject:
   - 4: {fileID: 1488695001}
   - 212: {fileID: 1488695002}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3094,7 +3122,7 @@ GameObject:
   - 61: {fileID: 1642472524}
   - 114: {fileID: 1642472523}
   m_Layer: 0
-  m_Name: Rotation Pivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3205,7 +3233,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1733599118}
   m_Layer: 0
-  m_Name: StartCubePivot
+  m_Name: Center Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3436,7 +3464,7 @@ GameObject:
   - 4: {fileID: 1882321326}
   - 114: {fileID: 1882321327}
   m_Layer: 0
-  m_Name: Block Terrain
+  m_Name: Defensive Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3464,7 +3492,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1882321325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc572105682034ba2af65037594ddaff, type: 3}
+  m_Script: {fileID: 11500000, guid: f8b755e3a8491474ca7d3ef60834ebbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FirstBlock: {fileID: 1642472520}
@@ -3509,7 +3537,7 @@ GameObject:
   - 4: {fileID: 1920833525}
   - 212: {fileID: 1920833526}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Gaphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3596,7 +3624,7 @@ GameObject:
   - 61: {fileID: 1940361816}
   - 114: {fileID: 1940361815}
   m_Layer: 0
-  m_Name: Rotation Pivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3816,7 +3844,7 @@ GameObject:
   - 4: {fileID: 1950134087}
   - 212: {fileID: 1950134088}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3937,7 +3965,7 @@ GameObject:
   - 4: {fileID: 2045415941}
   - 114: {fileID: 2045415942}
   m_Layer: 0
-  m_Name: RotationTerrain
+  m_Name: RotatingTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3966,11 +3994,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2045415940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9042e6f664246f19691e31a8082943, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f40fdb4cbeed4a2189c1e817e16e912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainPivot: {fileID: 1413744582}
-  StartCube: {fileID: 1733599117}
+  StartPivot: {fileID: 1413744582}
+  CenterPivot: {fileID: 1733599117}
   Wing1: {fileID: 149677950}
   Wing2: {fileID: 742631913}
   Collider1: {fileID: 255769159}
@@ -4015,7 +4043,7 @@ GameObject:
   - 61: {fileID: 2097079019}
   - 114: {fileID: 2097079018}
   m_Layer: 0
-  m_Name: Rotation Pivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
