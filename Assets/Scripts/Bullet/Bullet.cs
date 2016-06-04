@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour, Stoppable, Damagable {
-
-    public PlayerType Type;
+public class Bullet : MonoBehaviour, Stoppable, Damagable 
+{
+    public PlayerType Type {get; set;}
 
     public Rigidbody2D RigidBody
     {

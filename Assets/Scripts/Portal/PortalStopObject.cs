@@ -1,19 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PortalStopObject : StopObject {
-
+public class PortalStopObject : StopObject
+{
+    public PlayerType PortalSide;
     public PortalHealth healthBar;
 
-    protected ComboCalculator calculator = new ComboCalculator();
+    protected ComboCalculator opponentCombo = new ComboCalculator();
     [SerializeField] protected string smallTextCodeCall = "SmallFloatingText";
     [SerializeField] protected string bigTextCodeCall = "BigFloatingText";
 
     protected override void OnCollisionEnter2D(Collision2D coll)
     {
         base.OnCollisionEnter2D(coll);
-        healthBar.ApplyDamage(calculator.GetDamage(this));
+        ApplyCalculatedDamage(coll.transform.GetComponent<Damagable>());
+    }
+
+    private void Awake()
+    {
+        ComboBreaker.OnComboFinished += ComboFinished;
+    }
+
+    private void OnDestroy()
+    {
+        ComboBreaker.OnComboFinished -= ComboFinished;
+    }
+
+    public void ComboFinished(PlayerType type)
+    {
+        if (!type.Equals(PortalSide)) opponentCombo.ResetCombo();
+    }
+
+    private void ApplyCalculatedDamage(Damagable dmg)
+    {
+        if (dmg.Type.Equals(PortalSide))
+            return;
+
+        float damage = opponentCombo.GetDamage(dmg);
+        healthBar.ApplyDamage(damage);
         DisplayFloatingText();
+        opponentCombo.IncreseCombo();
     }
 
     private void DisplayFloatingText()
@@ -21,13 +47,13 @@ public class PortalStopObject : StopObject {
         FloatingText text = ObjectFactory.Instance.CreateObjectCode(GetTextCallCode()).GetComponent<FloatingText>();
         if (text != null)
         {
-            text.Initialize(transform.position + new Vector3(0f, 1f, 0f), 0f, string.Format("Combo {0}x", calculator.GetComboMultiplier(this)), Color.white);
+            text.Initialize(transform.position + new Vector3(0f, 1f, 0f), Random.Range(-1f, 1f), string.Format("Combo {0}x", opponentCombo.GetComboMultiplier()), Color.white);
         }
     }
 
     private string GetTextCallCode()
     {
-        if (calculator.GetComboMultiplier(this) < 3)
+        if (opponentCombo.GetComboMultiplier() < 2)
             return smallTextCodeCall;
 
         return bigTextCodeCall;
@@ -36,13 +62,30 @@ public class PortalStopObject : StopObject {
 
 public class ComboCalculator
 {
-    public float GetDamage(PortalStopObject portal)
+    private int comboCounter;
+
+    public ComboCalculator()
     {
-        return 1;
+        ResetCombo();
     }
 
-    public int GetComboMultiplier(PortalStopObject portal)
+    public void IncreseCombo()
     {
-        return 1;
+        comboCounter ++;
+    }
+
+    public void ResetCombo()
+    {
+        comboCounter = 1;
+    }
+
+    public float GetDamage(Damagable dmg)
+    {
+        return dmg == null ? 0f : comboCounter * dmg.Damage;
+    }
+
+    public int GetComboMultiplier()
+    {
+        return comboCounter;
     }
 }
