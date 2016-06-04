@@ -37,21 +37,22 @@ public class TouchDragAim : IFrameStates
     {
         DirectionVector calcShootDir = GetCalculatedShoot();
         shootDir = lerpShootDir ? LerpShootDir(calcShootDir) : calcShootDir;
-        CalculateTrajectory();
-        PositionDragGizmo(calcShootDir);
+        bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
+        CalculateTrajectory(isAllowedShoot);
+        PositionDragGizmo(calcShootDir, isAllowedShoot);
     }
 
-    private void CalculateTrajectory()
+    private void CalculateTrajectory(bool isAllowedShot)
     {
         shootTraject.Enable();
+        shootTraject.SetPointsState(isAllowedShot);
         shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
     }
 
-    private void PositionDragGizmo(DirectionVector calcShootDir)
+    private void PositionDragGizmo(DirectionVector calcShootDir, bool isAllowedShot)
     {
-        bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
         dragGizmos.Enable();
-        dragGizmos.SetState(isAllowedShoot);
+        dragGizmos.SetState(isAllowedShot);
         dragGizmos.SetDraggableZone(2, 2);
         dragGizmos.PositionObject(targetPosition, targetPosition + calcShootDir.direction);
     }
