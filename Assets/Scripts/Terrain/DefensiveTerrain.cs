@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ThirdTerrainAnimation : TerrainAnimation
+public class DefensiveTerrain : TerrainAnimation
 {
     [SerializeField] private GameObject FirstBlock;
     [SerializeField] private GameObject SecondBlock;

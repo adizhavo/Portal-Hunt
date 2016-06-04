@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CooldownPlatform : MonoBehaviour {
+public class PlatformCooldown : MonoBehaviour {
 
     public BulletContainer container;
 

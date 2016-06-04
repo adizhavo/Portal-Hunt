@@ -3,8 +3,8 @@ using System.Collections;
 
 public class DragGizmos : MonoBehaviour 
 {
-    [SerializeField] private Transform FirstPos;
-    [SerializeField] private Transform FingetPos;
+    [SerializeField] private Transform DownPos;
+    [SerializeField] private Transform FramePos;
     [SerializeField] private Transform Line;
     [SerializeField] private Transform DraggableZone;
 
@@ -20,8 +20,8 @@ public class DragGizmos : MonoBehaviour
 
     public void PositionObject(Vector2 startPos, Vector2 fingerPos)
     {
-        FirstPos.position = startPos;
-        FingetPos.position = fingerPos;
+        DownPos.position = startPos;
+        FramePos.position = fingerPos;
 
         Line.position = (startPos + fingerPos) / 2;
         Line.localScale = new Vector3(Vector2.Distance(startPos, fingerPos), 1f, 1f);

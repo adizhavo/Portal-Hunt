@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FirstTerrainAnimation : TerrainAnimation {
+public class RotatingTerrain : TerrainAnimation {
 
-    [SerializeField] private GameObject MainPivot;
-    [SerializeField] private GameObject StartCube;
+    [SerializeField] private GameObject StartPivot;
+    [SerializeField] private GameObject CenterPivot;
     [SerializeField] private GameObject Wing1;
     [SerializeField] private GameObject Wing2;
     [SerializeField] private GameObject Collider1;
@@ -20,8 +20,8 @@ public class FirstTerrainAnimation : TerrainAnimation {
         {
             gameObject.SetActive(true);
 
-            MainPivot.transform.localScale = new Vector3(0f, 1f, 1f);
-            StartCube.transform.localScale = Vector3.zero;
+            StartPivot.transform.localScale = new Vector3(0f, 1f, 1f);
+            CenterPivot.transform.localScale = Vector3.zero;
             Wing1.transform.localScale = new Vector3(0f, 1f, 1f);
             Wing2.transform.localScale = new Vector3(0f, 1f, 1f);
 
@@ -29,10 +29,10 @@ public class FirstTerrainAnimation : TerrainAnimation {
             Collider2.transform.localScale = Vector3.zero;
 
             CameraShake.Instance.DoShake(ShakeType.Medium);
-            LeanTween.scale(MainPivot, Vector3.one, introTime).setEase(LeanTweenType.easeOutBack).setOnComplete(
+            LeanTween.scale(StartPivot, Vector3.one, introTime).setEase(LeanTweenType.easeOutBack).setOnComplete(
                 () =>
                 {
-                    LeanTween.scale(StartCube, Vector3.one, introTime).setEase(LeanTweenType.easeOutBack).setOnComplete(
+                    LeanTween.scale(CenterPivot, Vector3.one, introTime).setEase(LeanTweenType.easeOutBack).setOnComplete(
                         () => 
                         {
                             CameraShake.Instance.DoShake(ShakeType.Large);
@@ -71,11 +71,11 @@ public class FirstTerrainAnimation : TerrainAnimation {
                 LeanTween.scale(Wing2, new Vector3(0f, 1f, 1f), 0.1f).setOnComplete(
                     () => 
                     {
-                        LeanTween.scale(StartCube, Vector3.zero, 0.1f).setOnComplete(
+                        LeanTween.scale(CenterPivot, Vector3.zero, 0.1f).setOnComplete(
                             () => 
                             {
                                 CameraShake.Instance.DoShake(ShakeType.Medium);
-                                LeanTween.scale(MainPivot, new Vector3(0f, 1f, 1f), 0.1f).setEase(LeanTweenType.easeOutBack).setOnComplete(
+                                LeanTween.scale(StartPivot, new Vector3(0f, 1f, 1f), 0.1f).setEase(LeanTweenType.easeOutBack).setOnComplete(
                                     () =>
                                     {
                                         gameObject.SetActive(false);
