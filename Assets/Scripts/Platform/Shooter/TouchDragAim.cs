@@ -6,6 +6,7 @@ public class TouchDragAim : IFrameStates
     private DirectionVector shootDir;
     private Vector2 targetPosition;
     private DragGizmos dragGizmos;
+    private float lerpSpeed = 4;
 
     public TouchDragAim(PlatformShoot platform, Vector2 targetPos, DragGizmos dragGizmos)
     {
@@ -14,14 +15,14 @@ public class TouchDragAim : IFrameStates
         this.dragGizmos = dragGizmos;
 
         shootTraject = new ShooterTrajectory();
-        CalculateShootDir();
+        CalculateShootDir(false);
     }
 
     public void StateFrameCheck()
     {
         if (TouchInput.Touch())
         {
-            CalculateShootDir();
+            CalculateShootDir(true);
             DebugDragVector();
         }
         else if (TouchInput.TouchUp())
@@ -33,11 +34,10 @@ public class TouchDragAim : IFrameStates
         }
     }
 
-    private void CalculateShootDir()
+    private void CalculateShootDir(bool lerpShootDir)
     {
-        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
-        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
-        shootDir = calcShootDir;
+        DirectionVector calcShootDir = GetCalculatedShoot();
+        shootDir = lerpShootDir ? LerpShootDir(calcShootDir) : calcShootDir;
 
         shootTraject.Enable();
         shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
@@ -48,6 +48,21 @@ public class TouchDragAim : IFrameStates
         dragGizmos.SetState(isAllowedShoot);
         dragGizmos.SetDraggableZone(2, 2);
         dragGizmos.PositionObject(targetPosition, targetPosition + calcShootDir.direction);
+    }
+
+    private DirectionVector GetCalculatedShoot()
+    {
+        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
+        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
+        return calcShootDir;
+    }
+
+    private DirectionVector LerpShootDir(DirectionVector calcShoot)
+    {
+        DirectionVector sDir = shootDir;
+        sDir.direction = Vector2.Lerp(sDir.direction, calcShoot.direction, Time.deltaTime * lerpSpeed);
+        sDir.magnitudeOfDir = Mathf.Lerp(sDir.magnitudeOfDir, calcShoot.magnitudeOfDir, Time.deltaTime * lerpSpeed);
+        return sDir;
     }
 
     private void ValidateShoot()
