@@ -1795,6 +1795,8 @@ GameObject:
   - 114: {fileID: 728206772}
   - 114: {fileID: 728206774}
   - 114: {fileID: 728206775}
+  - 114: {fileID: 728206777}
+  - 114: {fileID: 728206776}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -1846,6 +1848,10 @@ MonoBehaviour:
     Pool: {fileID: 728206774}
   - CallCode: DragGizmos
     Pool: {fileID: 728206775}
+  - CallCode: SmallFloatingText
+    Pool: {fileID: 728206777}
+  - CallCode: BigFloatingText
+    Pool: {fileID: 728206776}
 --- !u!114 &728206774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,6 +1880,34 @@ MonoBehaviour:
   ObjectToPool: {fileID: 148000, guid: 66c0f9448e7974f23a50b45f82377e8d, type: 2}
   PoolSize: 3
   ParentName: DragGizmos
+--- !u!114 &728206776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 728206770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToPool: {fileID: 122282, guid: f21d9fbdcdb3d4fc7822a6f067ae4ba4, type: 2}
+  PoolSize: 10
+  ParentName: BigFloatingText
+--- !u!114 &728206777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 728206770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToPool: {fileID: 105546, guid: 5b27bc117905843e9bae1ed2007922c1, type: 2}
+  PoolSize: 10
+  ParentName: SmallFloatingText
 --- !u!1 &737368921
 GameObject:
   m_ObjectHideFlags: 0
