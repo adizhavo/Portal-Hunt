@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initHp: 5
-  rigeneration: 0.02
+  rigeneration: 0.03
   HealthScaler: {fileID: 2057920530}
 --- !u!1 &557509140
 GameObject:
@@ -2742,7 +2742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initHp: 5
-  rigeneration: 0.02
+  rigeneration: 0.03
   HealthScaler: {fileID: 1804877642}
 --- !u!1 &1289129398
 GameObject:
