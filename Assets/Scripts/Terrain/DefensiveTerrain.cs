@@ -3,7 +3,6 @@ using System.Collections;
 
 public class DefensiveTerrain : TerrainChanger
 {
-    [SerializeField] private PlayerType DefenderType;
     [SerializeField] private GameObject FirstBlock;
     [SerializeField] private GameObject SecondBlock;
 

@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
     {
         Ready, 
         Fired,
-        Cooldown
+        Cooldown, 
     }
     protected State currentBulletState;
 

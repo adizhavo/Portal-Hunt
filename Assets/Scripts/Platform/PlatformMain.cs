@@ -3,6 +3,7 @@ using System.Collections;
 
 public enum PlayerType
 {
+    Neutral,
     APlayer, 
     BPlayer
 }
