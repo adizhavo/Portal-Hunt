@@ -5,23 +5,21 @@ public class CooldownGizmos : MonoBehaviour {
 
     [SerializeField] protected Transform ScalePivot;
 
-    protected float initialValue;
-   
-    protected virtual void Awake()
+    protected Stoppable stopObject;
+
+    public void Init(Stoppable stopObject)
     {
-        ScalePivot.localScale = Vector3.zero;
+        this.stopObject = stopObject;
     }
 
-    public virtual void StartGizmo(float MaxValue)
+    public virtual void Update()
     {
-        initialValue = MaxValue;
-    }
-
-    public virtual void UpdateValue(float currentValue)
-    {
-        if (initialValue <= 0f)
+        if (stopObject == null)
+        {
+            ScalePivot.localScale = Vector3.zero;
             return;
-        
-        ScalePivot.localScale = new Vector3(currentValue / initialValue, 1f, 1f);
+        }
+
+        ScalePivot.localScale = new Vector3(stopObject.CooldownTime / stopObject.PreviousCooldown, 1f, 1f);
     }
 }
