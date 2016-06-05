@@ -5,7 +5,7 @@ public class DragTouch : IFrameStates
     private PlatformShoot platform;
     private DirectionVector shootDir;
     private Vector2 firstTouchedPos;
-    private float lerpSpeed = 4;
+    private float lerpSpeed = 5f;
 
     public DragTouch(PlatformShoot platform, Vector2 firstTouchedPos)
     {
@@ -36,10 +36,11 @@ public class DragTouch : IFrameStates
         platform.DrawGizmo(firstTouchedPos, calcShootDir, true);
     }
 
-    private DirectionVector LerpShootDir(DirectionVector shootDir, DirectionVector calcShoot)
+    private DirectionVector LerpShootDir(DirectionVector from, DirectionVector to)
     {
-        shootDir.direction = Vector2.Lerp(shootDir.direction, new Vector2(calcShoot.direction.x, calcShoot.direction.y), Time.deltaTime * lerpSpeed);
-        return shootDir;
+        from.direction = Vector2.Lerp(from.direction, to.direction, Time.deltaTime * lerpSpeed);
+        from.magnitudeOfDir = to.magnitudeOfDir;
+        return from;
     }
 
     private void ValidateShoot()
