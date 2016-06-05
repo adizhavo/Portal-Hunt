@@ -2,20 +2,14 @@
 public class TouchDragAim : IFrameStates
 {
     private PlatformShoot platform;
-    private ShooterTrajectory shootTraject;
     private DirectionVector shootDir;
-    private Vector2 targetPosition;
-    private DragGizmos dragGizmos;
+    private Vector2 firstTouchedPos;
     private float lerpSpeed = 4;
 
-    public TouchDragAim(PlatformShoot platform, Vector2 targetPos, DragGizmos dragGizmos)
+    public TouchDragAim(PlatformShoot platform, Vector2 firstTouchedPos)
     {
         this.platform = platform;
-        this.targetPosition = targetPos;
-        this.dragGizmos = dragGizmos;
-
-        shootTraject = new ShooterTrajectory();
-        CalculateShootDir(false);
+        this.firstTouchedPos = firstTouchedPos;
     }
 
     public void StateFrameCheck()
@@ -27,57 +21,31 @@ public class TouchDragAim : IFrameStates
         }
         else if (TouchInput.TouchUp())
         {
+            platform.ReleaseTrajectory();
+            platform.ReleaseGizmo();
             ValidateShoot();
-            shootTraject.Disable();
-            dragGizmos.Release();
         }
     }
 
     private void CalculateShootDir(bool lerpShootDir)
     {
-        DirectionVector calcShootDir = GetCalculatedShoot();
-        shootDir = lerpShootDir ? LerpShootDir(calcShootDir) : calcShootDir;
-        bool isAllowedShoot = IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction);
-        CalculateTrajectory(isAllowedShoot);
-        PositionDragGizmo(calcShootDir, isAllowedShoot);
+        DirectionVector calcShootDir = platform.GetCalculatedShoot(firstTouchedPos);
+        shootDir = lerpShootDir ? LerpShootDir(shootDir, calcShootDir) : calcShootDir;
+        platform.DrawTrajecotry(shootDir);
+        platform.DrawGizmos(firstTouchedPos, calcShootDir, true);
     }
 
-    private void CalculateTrajectory(bool isAllowedShot)
+    private DirectionVector LerpShootDir(DirectionVector shootDir, DirectionVector calcShoot)
     {
-        shootTraject.Enable();
-        shootTraject.SetPointsState(isAllowedShot);
-        shootTraject.Calculate(shootDir, platform.Position2D, platform.ShootForceMultiplier);
-    }
-
-    private void PositionDragGizmo(DirectionVector calcShootDir, bool isAllowedShot)
-    {
-        dragGizmos.Enable();
-        dragGizmos.SetState(isAllowedShot);
-        dragGizmos.SetDraggableZone(2, 2);
-        dragGizmos.PositionObject(targetPosition, targetPosition + calcShootDir.direction);
-    }
-
-    private DirectionVector GetCalculatedShoot()
-    {
-        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
-        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
-        return calcShootDir;
-    }
-
-    private DirectionVector LerpShootDir(DirectionVector calcShoot)
-    {
-        DirectionVector sDir = shootDir;
-        sDir.direction = Vector2.Lerp(sDir.direction, calcShoot.direction, Time.deltaTime * lerpSpeed);
-        sDir.magnitudeOfDir = Mathf.Lerp(sDir.magnitudeOfDir, calcShoot.magnitudeOfDir, Time.deltaTime * lerpSpeed);
-        return sDir;
+        shootDir.direction = Vector2.Lerp(shootDir.direction, new Vector2(calcShoot.direction.x, calcShoot.direction.y), Time.deltaTime * lerpSpeed);
+        return shootDir;
     }
 
     private void ValidateShoot()
     {
-        DirectionVector calcShootDir = MathCalc.GetTouchDistance(targetPosition);
-        MathCalc.ClampVectMagnitude(ref calcShootDir, platform.MaxDragDistance);
+        DirectionVector calcShootDir = platform.GetCalculatedShoot(firstTouchedPos);
 
-        if (IsMinDistanceOfShot(calcShootDir.magnitudeOfDir) && IsInAllowedShootPosition(calcShootDir.direction))
+        if (platform.IsDirectionValid(calcShootDir))
         {
             DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
             platform.ChangeState(new TouchRelease(platform, ref shVal));
@@ -86,21 +54,11 @@ public class TouchDragAim : IFrameStates
             platform.ChangeState(new FirstTouch(platform));
     }
 
-    private bool IsInAllowedShootPosition(Vector2 fingerPos)
-    {
-        return fingerPos.y < - platform.MinDistanceOfTouch;
-    }
-
-    private bool IsMinDistanceOfShot(float currentDistance)
-    {
-        return currentDistance > platform.MinDistanceOfTouch;
-    }
-
     protected virtual void DebugDragVector()
     {
         #if UNITY_EDITOR
 
-        Debug.DrawLine(targetPosition, targetPosition + shootDir.direction, Color.yellow);
+        Debug.DrawLine(firstTouchedPos, firstTouchedPos + shootDir.direction, Color.yellow);
 
         #endif
     }

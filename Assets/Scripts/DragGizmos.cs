@@ -41,9 +41,14 @@ public class DragGizmos : MonoBehaviour
             gizmosSprites[sp].color = enable ? EnabledColor : DisableColor;
     }
 
-    public void Enable()
+    public void EnableDragZone()
     {
         DraggableZone.gameObject.SetActive(true);
+    }
+
+    public void DisableDragZone()
+    {
+        DraggableZone.gameObject.SetActive(false);
     }
 
     public void Release()
