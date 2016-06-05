@@ -1741,6 +1741,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlatformType: 2
+  PlatformStates:
+  - {fileID: 583230883}
+  - {fileID: 583230885}
   Container: {fileID: 583230886}
 --- !u!1 &598084382
 GameObject:
@@ -2588,6 +2591,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlatformType: 1
+  PlatformStates:
+  - {fileID: 1042543640}
+  - {fileID: 1042543639}
   Container: {fileID: 1042543642}
 --- !u!1 &1051420046
 GameObject:
