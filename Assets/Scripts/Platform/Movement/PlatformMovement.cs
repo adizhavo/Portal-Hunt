@@ -30,7 +30,7 @@ public class PlatformMovement : FrameStateObject
 
     #endregion
 
-    protected override void InitializeStates()
+    public override void Init()
     {
         currentState = new PositionChooser(this);
     }
@@ -38,5 +38,23 @@ public class PlatformMovement : FrameStateObject
     public void Move()
     {
         transform.Translate(Direction * Time.deltaTime * movementSpeed);
+    }
+
+    public void RotateTowardTarget(Vector2 targetPos)
+    {
+        Vector2 targetDir = targetPos - Position2D;
+        Vector2 platformDir = Direction ;
+        float sign = Mathf.Sign(Vector3.Cross(platformDir, targetDir).z);
+        float frameAngle = Vector2.Angle(targetDir, platformDir) * RotationSpeed;
+        frameAngle = Mathf.Clamp(frameAngle, RotationSpeed, Mathf.Infinity) * sign;
+        Rotation = frameAngle;
+    }
+
+    public Vector2 SelectPositionInZone()
+    {
+        float xRandomPos = Random.Range(HorizontalBoundaries.min, HorizontalBoundaries.max);
+        float yRandomPos = Random.Range(VerticalBoundaries.min, VerticalBoundaries.max);
+
+        return new Vector2(xRandomPos, yRandomPos);
     }
 }

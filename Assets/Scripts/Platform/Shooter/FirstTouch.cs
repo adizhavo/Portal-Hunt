@@ -9,7 +9,6 @@ public class FirstTouch : IFrameStates
 {
     private PlatformShoot platform;
     private Vector2 firstTouchedPos;
-    private DragGizmos dragGizmos;
 
     public FirstTouch(PlatformShoot platformTr)
     {
@@ -21,50 +20,22 @@ public class FirstTouch : IFrameStates
         if (TouchInput.TouchDown())
         {
             firstTouchedPos = (Vector2)Camera.main.ScreenToWorldPoint(TouchInput.TouchPos());
-
-            if (IsTouchAtRightPosition())
-            {
-                dragGizmos = platform.GetGizmos();
-                ValidateCurrentTouch();
-            }
         }
-        else if (TouchInput.Touch() && IsTouchAtRightPosition())
+        else if (TouchInput.Touch() && platform.IsPlatformTouch(firstTouchedPos))
         {
-            ValidateCurrentTouch();
+            CheckStateChange();
         }
-        else if (TouchInput.TouchUp() && IsTouchAtRightPosition())
+        else if (TouchInput.TouchUp() && platform.IsPlatformTouch(firstTouchedPos))
         {
-            dragGizmos.Release();
+            platform.ReleaseGizmo();
         }
     }
 
-    private void ValidateCurrentTouch()
+    private void CheckStateChange()
     {
         DirectionVector currentTouch = MathCalc.GetTouchDistance(firstTouchedPos);
-        DrawGizmos(currentTouch);
-
-        if (IsDragValid(currentTouch))
-            platform.ChangeState(new TouchDragAim(platform, firstTouchedPos, dragGizmos));
-    }
-
-    private bool IsTouchAtRightPosition()
-    {
-        int touchPos = (int)Camera.main.WorldToScreenPoint(firstTouchedPos).x;
-
-        if (touchPos - Screen.width/2 > 0 && platform.ShooterPosition.Equals(Position.Right)) return true;
-        if (touchPos - Screen.width/2 < 0 && platform.ShooterPosition.Equals(Position.Left)) return true;
-
-        return false;
-    }
-
-    private bool IsDragValid(DirectionVector currentTouch)
-    {
-        return currentTouch.magnitudeOfDir > platform.MinDistanceOfTouch && currentTouch.direction.y < - platform.MinDistanceOfTouch;
-    }
-
-    private void DrawGizmos(DirectionVector currentTouch)
-    {
-        dragGizmos.PositionObject(firstTouchedPos, firstTouchedPos + currentTouch.direction);
-        dragGizmos.SetState(false);
+        platform.DrawGizmo(firstTouchedPos, currentTouch);
+        if (platform.IsDirectionValid(currentTouch))
+            platform.ChangeState(new DragTouch(platform, firstTouchedPos));
     }
 }

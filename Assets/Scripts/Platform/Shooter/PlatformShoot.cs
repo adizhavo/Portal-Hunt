@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum Position
+public enum ShootPosition
 {
     Left, 
     Right
@@ -19,7 +19,7 @@ public class PlatformShoot : FrameStateObject
     public string DragGizmosCallCode { get { return dragGizmosCallCode; } }
 
     // Setted in the editor or throught code
-    public Position ShooterPosition;
+    public ShootPosition ShooterPosition;
     #endregion
 
     #region Protected Fields
@@ -28,9 +28,11 @@ public class PlatformShoot : FrameStateObject
     [SerializeField] protected float maxDragDistance;
     [SerializeField] protected float shootForceMultiplier;
     [SerializeField] protected string dragGizmosCallCode = "DragGizmos";
+    protected ShooterTrajectory shootTraject = new ShooterTrajectory();
+    protected DragGizmo gizmo;
     #endregion
 
-    protected override void InitializeStates()
+    public override void Init()
     {
         currentState = new FirstTouch(this);
     }
@@ -52,15 +54,71 @@ public class PlatformShoot : FrameStateObject
         #endif
     }
 
-    public DragGizmos GetGizmos()
+    public bool IsPlatformTouch(Vector2 touchPos)
     {
-        GameObject gizmos = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
+        int touchXPos = (int)Camera.main.WorldToScreenPoint(touchPos).x;
 
-        if (gizmos != null)
+        if (touchXPos - Screen.width/2 > 0 && ShooterPosition.Equals(ShootPosition.Right)) return true;
+        if (touchXPos - Screen.width/2 < 0 && ShooterPosition.Equals(ShootPosition.Left)) return true;
+
+        return false;
+    }
+
+    public bool IsDirectionValid(DirectionVector currentTouch)
+    {
+        return currentTouch.magnitudeOfDir > MinDistanceOfTouch && currentTouch.direction.y < - MinDistanceOfTouch;
+    }
+
+    public DirectionVector GetCalculatedShoot(Vector2 touchPos)
+    {
+        DirectionVector calcShootDir = MathCalc.GetTouchDistance(touchPos);
+        MathCalc.ClampVectMagnitude(ref calcShootDir, MaxDragDistance);
+        return calcShootDir;
+    }
+
+    public void ReleaseGizmo()
+    {
+        if(gizmo == null)
+            return;
+
+        gizmo.Release();
+        gizmo = null;
+    }
+
+    public void DrawGizmo(Vector2 firstTouch, DirectionVector currentTouch, bool dragZoneActive = false)
+    {
+        if (gizmo == null)
+            ChooseGizmo();
+
+        bool isAllowed = IsDirectionValid(currentTouch);
+
+        gizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
+        gizmo.SetState(isAllowed);
+
+        if (dragZoneActive)
         {
-            return gizmos.GetComponent<DragGizmos>();
+            gizmo.EnableDragZone();
+            gizmo.SetDraggableZone(2, 2);
         }
+    }
 
-        return null;
+    public void DrawTrajecotry(DirectionVector shootDir)
+    {
+        bool isAllowedShot = IsDirectionValid(shootDir);
+
+        shootTraject.Enable();
+        shootTraject.SetPointsState(isAllowedShot);
+        shootTraject.Calculate(shootDir, Position2D, ShootForceMultiplier);
+    }
+
+    public void ReleaseTrajectory()
+    {
+        shootTraject.Disable();
+    }
+
+    private void ChooseGizmo()
+    {
+        GameObject gizmoObject = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
+        gizmo = gizmoObject.GetComponent<DragGizmo>();
     }
 }

@@ -1,29 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour, Stoppable, Damagable 
+public class Bullet : MonoBehaviour, Stoppable, Damagable
 {
+    public CooldownGizmos cooldownGizmo;
+
     public PlayerType Type {get; set;}
-    public CooldownGizmos CooldDown;
 
     public Rigidbody2D RigidBody
     {
         get { return movement.BulletRgB; }
-    }
-
-    public float Damage
-    {
-        get { return damage; }
-    }
-
-    public float CooldownTime
-    {
-        get { return cooldownTime; }
-    }
-
-    public float PreviousCooldown
-    {
-        get { return previousCooldown; }
     }
 
     protected enum State
@@ -33,22 +19,19 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
         Cooldown, 
     }
     protected State currentBulletState;
-
     private BulletMovement movement;
-    private float cooldownTime = 0f;
-    private float previousCooldown = 1f;
-    [SerializeField] private float damage = 1f;
 
-    public void BoostDamage(float boostValue)
+    #region Stoppable Imp
+    private float cooldownTime = 0f;
+    public float CooldownTime
     {
-        damage *= boostValue;
+        get { return cooldownTime; }
     }
 
-    public void Shoot(DirectionVector direction, Vector3 initialPos)
+    private float previousCooldown = Mathf.Infinity;
+    public float PreviousCooldown
     {
-        currentBulletState = State.Fired;
-        movement.BulletRgB.isKinematic = false;
-        movement.SetDirection(direction, initialPos);
+        get { return previousCooldown; }
     }
 
     public void StopForSec(float sec)
@@ -57,10 +40,10 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
 
         if (currentBulletState.Equals(State.Fired))
             previousCooldown = sec;
+        
         currentBulletState = State.Cooldown;
 
         movement.BulletRgB.isKinematic = true;
-        CooldDown.StartGizmo(CooldownTime);
     }
 
     public bool IsReleased()
@@ -72,11 +55,32 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
     {
         return currentBulletState.Equals(State.Cooldown);
     }
+    #endregion
+
+    #region Damagable Imp
+
+    [SerializeField] private float damage = 1f;
+    public float Damage
+    {
+        get { return damage; }
+    }
+
+    public void BoostDamage(float boostValue)
+    {
+        damage *= boostValue;
+    }
+    #endregion
+
+    public void Shoot(DirectionVector direction, Vector3 initialPos)
+    {
+        currentBulletState = State.Fired;
+        movement.BulletRgB.isKinematic = false;
+        movement.SetDirection(direction, initialPos);
+    }
 
     private void Awake()
     {
         movement = new BulletMovement(transform);
-
         Setup();
     }
 
@@ -85,6 +89,7 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
         gameObject.SetActive(true);
         currentBulletState = State.Ready;
         movement.BulletRgB.isKinematic = true;
+        cooldownGizmo.Init(this);
     }
 
     private void Update()
@@ -109,8 +114,6 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
                 currentBulletState = State.Ready;
                 // Call event Maybe..
             }
-
-            CooldDown.UpdateValue(CooldownTime);
         }
     }
 }

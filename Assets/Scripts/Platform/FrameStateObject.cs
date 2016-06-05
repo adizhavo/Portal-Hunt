@@ -8,11 +8,6 @@ public abstract class FrameStateObject : MonoBehaviour
 
     protected IFrameStates currentState;
 
-    private void Start()
-    {
-        InitializeStates();
-    }
-
     private void Update()
     {
         currentState.StateFrameCheck();
@@ -23,5 +18,5 @@ public abstract class FrameStateObject : MonoBehaviour
         currentState = newState;
     }
 
-    protected abstract void InitializeStates();
+    public abstract void Init();
 }
