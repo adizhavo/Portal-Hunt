@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
-public class TouchDragAim : IFrameStates
+
+public class DragTouch : IFrameStates
 {
     private PlatformShoot platform;
     private DirectionVector shootDir;
     private Vector2 firstTouchedPos;
     private float lerpSpeed = 4;
 
-    public TouchDragAim(PlatformShoot platform, Vector2 firstTouchedPos)
+    public DragTouch(PlatformShoot platform, Vector2 firstTouchedPos)
     {
         this.platform = platform;
         this.firstTouchedPos = firstTouchedPos;
@@ -32,7 +33,7 @@ public class TouchDragAim : IFrameStates
         DirectionVector calcShootDir = platform.GetCalculatedShoot(firstTouchedPos);
         shootDir = lerpShootDir ? LerpShootDir(shootDir, calcShootDir) : calcShootDir;
         platform.DrawTrajecotry(shootDir);
-        platform.DrawGizmos(firstTouchedPos, calcShootDir, true);
+        platform.DrawGizmo(firstTouchedPos, calcShootDir, true);
     }
 
     private DirectionVector LerpShootDir(DirectionVector shootDir, DirectionVector calcShoot)
@@ -48,7 +49,7 @@ public class TouchDragAim : IFrameStates
         if (platform.IsDirectionValid(calcShootDir))
         {
             DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
-            platform.ChangeState(new TouchRelease(platform, ref shVal));
+            platform.ChangeState(new ReleaseTouch(platform, ref shVal));
         }
         else
             platform.ChangeState(new FirstTouch(platform));

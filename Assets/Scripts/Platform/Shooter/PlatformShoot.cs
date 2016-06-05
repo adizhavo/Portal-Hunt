@@ -29,7 +29,7 @@ public class PlatformShoot : FrameStateObject
     [SerializeField] protected float shootForceMultiplier;
     [SerializeField] protected string dragGizmosCallCode = "DragGizmos";
     protected ShooterTrajectory shootTraject = new ShooterTrajectory();
-    protected DragGizmos dragGizmo;
+    protected DragGizmo gizmo;
     #endregion
 
     protected override void InitializeStates()
@@ -78,26 +78,26 @@ public class PlatformShoot : FrameStateObject
 
     public void ReleaseGizmo()
     {
-        if(dragGizmo == null)
+        if(gizmo == null)
             return;
 
-        dragGizmo.Release();
-        dragGizmo = null;
+        gizmo.Release();
+        gizmo = null;
     }
 
-    public void DrawGizmos(Vector2 firstTouch, DirectionVector currentTouch, bool dragZoneActive = false)
+    public void DrawGizmo(Vector2 firstTouch, DirectionVector currentTouch, bool dragZoneActive = false)
     {
-        if (dragGizmo == null)
+        if (gizmo == null)
             ChooseGizmo();
 
-        dragGizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
+        gizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
         bool isAllowed = IsDirectionValid(currentTouch);
-        dragGizmo.SetState(isAllowed);
+        gizmo.SetState(isAllowed);
 
         if (dragZoneActive)
         {
-            dragGizmo.EnableDragZone();
-            dragGizmo.SetDraggableZone(2, 2);
+            gizmo.EnableDragZone();
+            gizmo.SetDraggableZone(2, 2);
         }
     }
 
@@ -117,6 +117,6 @@ public class PlatformShoot : FrameStateObject
     private void ChooseGizmo()
     {
         GameObject gizmos = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
-        dragGizmo = gizmos.GetComponent<DragGizmos>();
+        gizmo = gizmos.GetComponent<DragGizmo>();
     }
 }

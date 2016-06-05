@@ -1,9 +1,9 @@
-﻿public class TouchRelease : IFrameStates
+﻿public class ReleaseTouch : IFrameStates
 {
     private PlatformShoot platform;
     private DirectionVector shootDirValues;
 
-    public TouchRelease(PlatformShoot platform, ref DirectionVector shootDirValues)
+    public ReleaseTouch(PlatformShoot platform, ref DirectionVector shootDirValues)
     {
         this.platform = platform;
         this.shootDirValues = shootDirValues;

@@ -34,8 +34,8 @@ public class FirstTouch : IFrameStates
     private void CheckStateChange()
     {
         DirectionVector currentTouch = MathCalc.GetTouchDistance(firstTouchedPos);
-        platform.DrawGizmos(firstTouchedPos, currentTouch);
+        platform.DrawGizmo(firstTouchedPos, currentTouch);
         if (platform.IsDirectionValid(currentTouch))
-            platform.ChangeState(new TouchDragAim(platform, firstTouchedPos));
+            platform.ChangeState(new DragTouch(platform, firstTouchedPos));
     }
 }

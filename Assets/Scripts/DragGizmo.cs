@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DragGizmos : MonoBehaviour 
+public class DragGizmo : MonoBehaviour 
 {
     [SerializeField] private Transform DownPos;
     [SerializeField] private Transform FramePos;
