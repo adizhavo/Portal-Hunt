@@ -42,6 +42,9 @@ public static class MathCalc
 
     public static float MinOfFloat(List<float> list)
     {
+        if (list.Count == 0)
+            return 0;
+
         float min = Mathf.Infinity;
 
         for (int i = 0; i < list.Count; i ++)
