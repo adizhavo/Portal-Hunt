@@ -30,7 +30,7 @@ public class PlatformMovement : FrameStateObject
 
     #endregion
 
-    protected override void InitializeStates()
+    public override void Init()
     {
         currentState = new PositionChooser(this);
     }

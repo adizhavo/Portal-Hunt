@@ -32,7 +32,7 @@ public class PlatformShoot : FrameStateObject
     protected DragGizmo gizmo;
     #endregion
 
-    protected override void InitializeStates()
+    public override void Init()
     {
         currentState = new FirstTouch(this);
     }
@@ -90,8 +90,9 @@ public class PlatformShoot : FrameStateObject
         if (gizmo == null)
             ChooseGizmo();
 
-        gizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
         bool isAllowed = IsDirectionValid(currentTouch);
+
+        gizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
         gizmo.SetState(isAllowed);
 
         if (dragZoneActive)
@@ -104,6 +105,7 @@ public class PlatformShoot : FrameStateObject
     public void DrawTrajecotry(DirectionVector shootDir)
     {
         bool isAllowedShot = IsDirectionValid(shootDir);
+
         shootTraject.Enable();
         shootTraject.SetPointsState(isAllowedShot);
         shootTraject.Calculate(shootDir, Position2D, ShootForceMultiplier);
@@ -116,7 +118,7 @@ public class PlatformShoot : FrameStateObject
 
     private void ChooseGizmo()
     {
-        GameObject gizmos = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
-        gizmo = gizmos.GetComponent<DragGizmo>();
+        GameObject gizmoObject = ObjectFactory.Instance.CreateObjectCode(DragGizmosCallCode) as GameObject;
+        gizmo = gizmoObject.GetComponent<DragGizmo>();
     }
 }
