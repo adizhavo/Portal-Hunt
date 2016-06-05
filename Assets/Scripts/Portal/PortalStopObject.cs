@@ -37,7 +37,7 @@ public class PortalStopObject : StopObject
         FloatingText text = ObjectFactory.Instance.CreateObjectCode(GetTextCallCode()).GetComponent<FloatingText>();
         if (text != null)
         {
-            text.Initialize(
+            text.Display(
                 transform.position + new Vector3(0f, 1f, 0f), 
                 Random.Range(-1f, 1f),
                 string.Format("Combo {0}x", opponentCombo.GetComboMultiplier())

@@ -5,13 +5,13 @@ public class FloatingText : MonoBehaviour {
     [SerializeField] private FloatingMovement dropMovement;
     [SerializeField] private FloatingVisual dropValue;
 
-    public void Initialize(Vector3 startPos, float direction, string text)
+    public void Display(Vector3 startPos, float direction, string text)
     {
         dropMovement.Initialize(startPos, direction);
         dropValue.SetText(text);
     }
 
-    public void Initialize(Vector3 startPos, float direction, string text, Color color)
+    public void Display(Vector3 startPos, float direction, string text, Color color)
     {
         dropMovement.Initialize(startPos, direction);
         dropValue.SetText(text, color);

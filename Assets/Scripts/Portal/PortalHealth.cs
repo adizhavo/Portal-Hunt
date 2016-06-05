@@ -40,7 +40,7 @@ public class PortalHealth : MonoBehaviour {
     public void SetRigenerationSpeed(float regSpeed)
     {
         if (regSpeed > 0)
-            rigeneration = regSpeed;
+            rigeneration = regSpeed > 1f ? 1f : regSpeed;
     }
 
     protected virtual void ChangeGraphic(float currentHp)
