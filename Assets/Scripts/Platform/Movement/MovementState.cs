@@ -14,10 +14,11 @@ public class NormalMovement : IFrameStates
 
     public void StateFrameCheck()
     {
-        CheckPositionDistance();
-        RotateTowardTarget();
-        DebugSelectedPos();
+        platform.RotateTowardTarget(targetPos);
         platform.Move();
+
+        CheckPositionDistance();
+        DebugSelectedPos();
     }
 
     private void CheckPositionDistance()
@@ -28,16 +29,6 @@ public class NormalMovement : IFrameStates
         {
             platform.ChangeState(new PositionChooser(platform));
         }
-    }
-
-    private void RotateTowardTarget()
-    {
-        Vector2 targetDir = targetPos - platform.Position2D;
-        Vector2 platformDir = platform.Direction ;
-        float sign = Mathf.Sign(Vector3.Cross(platformDir, targetDir).z);
-        float frameAngle = Vector2.Angle(targetDir, platformDir) * platform.RotationSpeed;
-        frameAngle = Mathf.Clamp(frameAngle, platform.RotationSpeed, Mathf.Infinity) * sign;
-        platform.Rotation = frameAngle;
     }
 
     protected virtual void DebugSelectedPos()
@@ -62,19 +53,8 @@ public class PositionChooser : IFrameStates
 
     public void StateFrameCheck()
     {
-        Vector2 selectPos = SelectPositionInZone();
+        Vector2 selectPos = platform.SelectPositionInZone();
 
         platform.ChangeState(new NormalMovement(platform, selectPos));
-    }
-
-    private Vector2 SelectPositionInZone()
-    {
-        MinMaxValuesHolder minMaxHorizontalPos = platform.HorizontalBoundaries;
-        MinMaxValuesHolder minMaxVerticalPos = platform.VerticalBoundaries;
-
-        float xRandomPos = Random.Range(minMaxHorizontalPos.min, minMaxHorizontalPos.max);
-        float yRandomPos = Random.Range(minMaxVerticalPos.min, minMaxVerticalPos.max);
-
-        return new Vector2(xRandomPos, yRandomPos);
     }
 }
