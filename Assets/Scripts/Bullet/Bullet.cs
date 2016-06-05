@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
         get { return cooldownTime; }
     }
 
-    private float previousCooldown = 1f;
+    private float previousCooldown = Mathf.Infinity;
     public float PreviousCooldown
     {
         get { return previousCooldown; }
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
 
         if (currentBulletState.Equals(State.Fired))
             previousCooldown = sec;
+        
         currentBulletState = State.Cooldown;
 
         movement.BulletRgB.isKinematic = true;

@@ -19,21 +19,26 @@ public class BulletContainer : MonoBehaviour
         return null;
     }
 
+    #region Bullet cooldown calculations
+    private List<float> bulletCooldown = new List<float>();
+    private List<float> previousCooldown = new List<float>();
+
     public float GetBulletCooldown()
     {
-        List<float> bulletCooldown = new List<float>();
-        List<float> minCooldown = new List<float>();
+        bulletCooldown.Clear();
+        previousCooldown.Clear();
 
         for (int i = 0; i < ContainerSize; i++)
         {
-            bulletCooldown.Add(Bullets[i].CooldownTime);
-            minCooldown.Add(Bullets[i].PreviousCooldown);
+            if (Bullets[i].IsInCooldown() && GetAvailableBullet() == null)
+                bulletCooldown.Add(Bullets[i].CooldownTime);
+            
+            previousCooldown.Add(Bullets[i].PreviousCooldown);
         }
-
-        float calculatedPercentage = MathCalc.MinOfFloat(bulletCooldown) / MathCalc.MinOfFloat(minCooldown);
-
-        return GetAvailableBullet() != null ? 1 : calculatedPercentage ;
+        float percentage = Mathf.Clamp01(1f - MathCalc.MinOfFloat(bulletCooldown) / MathCalc.MinOfFloat(previousCooldown));
+        return percentage;
     }
+    #endregion
 
     public void Init(PlayerType type)
     {

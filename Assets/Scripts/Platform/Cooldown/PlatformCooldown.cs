@@ -22,9 +22,7 @@ public class PlatformCooldown : MonoBehaviour
 
     void AnimateCooldown()
     {
-        float percentage = container.GetBulletCooldown();
-        // invert value if in cooldown, since the cooldown starts from maxValue to 0
-        pivotScale.x = (percentage > 0f && percentage < 1f) ? 1f - percentage : percentage;
+        pivotScale.x = container.GetBulletCooldown();
         scalePivot.localScale = pivotScale;
     }
 
