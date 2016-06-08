@@ -98,6 +98,11 @@ public class RotatingTerrain : TerrainChanger
         ChooseRotationSide(collidedBullet);
     }
 
+    public bool ClockwiseRotation()
+    {
+        return frameRotation.IsRotatingClockwise();
+    }
+
     private void ChooseRotationSide(Bullet bullet)
     {
         if (bullet != null)

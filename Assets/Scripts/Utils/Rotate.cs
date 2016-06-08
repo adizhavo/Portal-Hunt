@@ -13,6 +13,11 @@ public class Rotate : MonoBehaviour
         rotationDirection = clockwise ? 1 : -1;
     }
 
+    public bool IsRotatingClockwise()
+    {
+        return rotationDirection == 1;
+    }
+
     private void OnDisable()
     {
         transform.localEulerAngles = Vector3.zero;
