@@ -21,6 +21,15 @@ public class MapStateAccessor : MonoBehaviour
     {
         instance = this;
     }
+
+    public byte[] GetActiveState()
+    {
+        for (int st = 0; st < states.Count; st ++)
+            if (states[st].IsStateActive())
+                return states[st].GetStateId();
+
+        return new byte[] {0, 0, 0, 0};
+    }
 }
 
 // We use abstract so we can inherit from MonoBehaviour

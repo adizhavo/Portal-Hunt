@@ -4,9 +4,9 @@ using System.Collections;
 public abstract class TerrainChanger : MonoBehaviour 
 {
     public PlayerType DefenderType;
-    protected ObjectState terrainState;
+    protected ObjectState terrainState = ObjectState.Close;
 
-    private void Awake()
+    protected void Awake()
     {
         SetCloseState();
     }
