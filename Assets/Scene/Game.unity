@@ -242,6 +242,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenceA: {fileID: 1103896391}
   defenceB: {fileID: 205182460}
+--- !u!1 &39290262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 39290263}
+  - 114: {fileID: 39290264}
+  m_Layer: 0
+  m_Name: MiddleCounterClockwise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39290263
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 39290262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 546033952}
+  m_RootOrder: 10
+--- !u!114 &39290264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 39290262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76960da9b03994772970295a7c4975ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotatingTerrain: {fileID: 2045415942}
 --- !u!1 &58092024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1386,8 @@ Transform:
   - {fileID: 18478957}
   - {fileID: 1383333912}
   - {fileID: 783648945}
+  - {fileID: 700381503}
+  - {fileID: 39290263}
   m_Father: {fileID: 1976647734}
   m_RootOrder: 2
 --- !u!114 &546033953
@@ -1369,6 +1411,8 @@ MonoBehaviour:
   - {fileID: 18478958}
   - {fileID: 1383333913}
   - {fileID: 783648946}
+  - {fileID: 700381504}
+  - {fileID: 39290264}
 --- !u!1 &552162364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2076,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartMinutes: 1
   StartSeconds: 30
+--- !u!1 &700381502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 700381503}
+  - 114: {fileID: 700381504}
+  m_Layer: 0
+  m_Name: MiddleClockwise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &700381503
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 700381502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 546033952}
+  m_RootOrder: 9
+--- !u!114 &700381504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 700381502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f4c01859f2a489dacbfbad66396f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotatingTerrain: {fileID: 2045415942}
 --- !u!1 &705567718
 GameObject:
   m_ObjectHideFlags: 0
