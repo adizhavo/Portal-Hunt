@@ -18,6 +18,7 @@ public class DefenceWall : TerrainChanger
         CameraShake.Instance.DoShake(ShakeType.Large);
         LeanTween.rotateZ(RotateWall, 0f, 0.3f).setEase(LeanTweenType.easeOutBack).setOnComplete(() => 
         {
+            SetOpenState();
             LeanTween.rotateZ(RotateWall, 35f, TriggerStopObject.ObjectStopTime);
         });
     }
@@ -29,6 +30,7 @@ public class DefenceWall : TerrainChanger
         LeanTween.rotateZ(RotateWall, 90f, 0.3f).setEase(LeanTweenType.easeInBack).setOnComplete(
             () =>
             {
+                SetCloseState();
                 gameObject.SetActive(false);
             }
         );
