@@ -44,6 +44,7 @@ public class RotatingTerrain : TerrainChanger
                                 LeanTween.scale(Collider2, Vector3.one, introTime).setEase(LeanTweenType.easeOutBack).setOnComplete(
                                     () =>
                                     {
+                                        SetOpenState();
                                         frameRotation.rotate = true;
                                         ChooseRotationSide(coll.transform.GetComponent<Bullet>());
                                     }
@@ -77,6 +78,7 @@ public class RotatingTerrain : TerrainChanger
                                 LeanTween.scale(StartPivot, new Vector3(0f, 1f, 1f), 0.1f).setEase(LeanTweenType.easeOutBack).setOnComplete(
                                     () =>
                                     {
+                                        SetCloseState();
                                         gameObject.SetActive(false);
                                     }
                                 );
@@ -100,7 +102,7 @@ public class RotatingTerrain : TerrainChanger
     {
         if (bullet != null)
         {
-            bool rotationSide = bullet.Type.Equals(PlayerType.BPlayer) ? true : false;
+            bool rotationSide = bullet.Type.Equals(PlayerType.BPlayer);
             frameRotation.SetRotationDirection(rotationSide);
         }
     }

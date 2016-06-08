@@ -16,6 +16,7 @@ public class DefensiveTerrain : TerrainChanger
         LeanTween.scaleX(FirstBlock, 1f, 0.3f).setEase(LeanTweenType.easeOutBack).setOnComplete(
             () =>
             {
+                SetOpenState();
                 CameraShake.Instance.DoShake(ShakeType.Medium);
                 LeanTween.scaleX(SecondBlock, 1f, 0.3f).setEase(LeanTweenType.easeOutBack);
             }
@@ -32,6 +33,7 @@ public class DefensiveTerrain : TerrainChanger
                 LeanTween.scaleX(FirstBlock, 0f, 0.3f).setEase(LeanTweenType.easeOutBack).setOnComplete(
                     () =>
                     {
+                        SetCloseState();
                         gameObject.SetActive(false);
                     }
                 );
