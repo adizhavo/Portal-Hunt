@@ -10,8 +10,8 @@ public class ADefence : MapState
         return defenceA.IsOpen();
     }
 
-    public override byte[] GetStateId()
+    public override int GetStateId()
     {
-        return new byte[] { 1, 0, 0, 0 };
+        return 8;
     }
 }

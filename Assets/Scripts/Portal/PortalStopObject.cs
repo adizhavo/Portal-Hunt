@@ -47,10 +47,7 @@ public class PortalStopObject : StopObject
 
     private string GetTextCallCode()
     {
-        if (opponentCombo.GetComboMultiplier() < 2)
-            return smallTextCodeCall;
-
-        return bigTextCodeCall;
+        return opponentCombo.GetComboMultiplier() < 2 ? smallTextCodeCall : bigTextCodeCall;
     }
 
     private void Awake()
