@@ -883,6 +883,45 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &340680769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 340680770}
+  - 114: {fileID: 340680771}
+  m_Layer: 0
+  m_Name: AIDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &340680770
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340680769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1976647734}
+  m_RootOrder: 4
+--- !u!114 &340680771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340680769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc43733bbdb841bc94ec216daefeafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &348818427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,7 +1881,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 583230881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c02dddaac5eda4b1cbf0b4c259b8c8b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e27cc6789ff6d4bf88ff512ada41f500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShooterPosition: 1
@@ -1851,6 +1890,8 @@ MonoBehaviour:
   maxDragDistance: 2.5
   shootForceMultiplier: 5
   dragGizmosCallCode: DragGizmos
+  AimTime: {x: 1, y: 5}
+  pltMover: {fileID: 583230885}
 --- !u!114 &583230884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,7 +1919,7 @@ MonoBehaviour:
     min: 3.6
     max: 8
   verticalBoundaries:
-    min: -1.5
+    min: -1
     max: 2
   minDistToChange: 1
   rotationSpeed: 0.01
@@ -2777,7 +2818,7 @@ MonoBehaviour:
     max: -3.6
   verticalBoundaries:
     min: -1
-    max: 3
+    max: 2
   minDistToChange: 1
   rotationSpeed: 0.01
   movementSpeed: 0.5
@@ -2825,7 +2866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe816eba2c4794b2799274c9c78bbcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContainerSize: 2
+  ContainerSize: 10
   bulletCallCode: Bullet
 --- !u!114 &1042543643
 MonoBehaviour:
@@ -4796,6 +4837,7 @@ Transform:
   - {fileID: 684821622}
   - {fileID: 546033952}
   - {fileID: 866966704}
+  - {fileID: 340680770}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1 &2034443932
