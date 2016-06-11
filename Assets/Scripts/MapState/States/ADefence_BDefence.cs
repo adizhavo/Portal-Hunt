@@ -11,8 +11,8 @@ public class ADefence_BDefence : MapState
         return defenceA.IsOpen() && defenceB.IsOpen();
     }
 
-    public override byte[] GetStateId()
+    public override int GetStateId()
     {
-        return new byte[] { 0, 1, 1, 1 };
+        return 7;
     }
 }

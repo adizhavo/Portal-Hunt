@@ -10,8 +10,8 @@ public class MiddleCounterClockwise : MapState
         return rotatingTerrain.IsOpen() && !rotatingTerrain.ClockwiseRotation();
     }
 
-    public override byte[] GetStateId()
+    public override int GetStateId()
     {
-        return new byte[] { 1, 0, 1, 1 };
+        return 11;
     }
 }

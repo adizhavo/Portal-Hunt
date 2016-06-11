@@ -22,13 +22,13 @@ public class MapStateAccessor : MonoBehaviour
         instance = this;
     }
 
-    public byte[] GetActiveState()
+    public int GetActiveState()
     {
         for (int st = 0; st < states.Count; st ++)
             if (states[st].IsStateActive())
                 return states[st].GetStateId();
 
-        return new byte[] {0, 0, 0, 0};
+        return 0;
     }
 }
 
@@ -36,5 +36,5 @@ public class MapStateAccessor : MonoBehaviour
 public abstract class MapState : MonoBehaviour 
 {
     public abstract bool IsStateActive();
-    public abstract byte[] GetStateId();
+    public abstract int GetStateId();
 }

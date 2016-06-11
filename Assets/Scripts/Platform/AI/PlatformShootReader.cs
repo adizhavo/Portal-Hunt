@@ -16,7 +16,7 @@ public class PlatformShootReader : PlatformShoot {
     {
         base.Shoot(dirVect);
         PlatformPos currentPos = posReader.GetPosition(Position2D);
-        byte[] currentMapState = MapStateAccessor.Instance.GetActiveState();
-        // all the information will be passed to the AI database
+        int currentMapState = MapStateAccessor.Instance.GetActiveState();
+        AIDatabase.Instance.LearnShot(dirVect, currentPos, currentMapState);
     }
 }

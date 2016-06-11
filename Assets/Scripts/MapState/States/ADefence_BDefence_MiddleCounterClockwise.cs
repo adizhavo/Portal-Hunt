@@ -12,8 +12,8 @@ public class ADefence_BDefence_MiddleCounterClockwise : MapState
         return defenceA.IsOpen() && defenceB.IsOpen() && rotatingTerrain.IsOpen() && !rotatingTerrain.ClockwiseRotation();
     }
 
-    public override byte[] GetStateId()
+    public override int GetStateId()
     {
-        return new byte[] { 0, 0, 1, 0 };
+        return 2;
     }
 }
