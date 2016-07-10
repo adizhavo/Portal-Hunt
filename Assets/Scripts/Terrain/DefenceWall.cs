@@ -8,6 +8,8 @@ public class DefenceWall : TerrainChanger
 
     public override void AnimateEntry(Collision2D coll)
     {
+        if (terrainState.Equals(ObjectState.Open)) LeanTween.pause(gameObject);
+
         gameObject.SetActive(true);
         RotateWall.transform.localEulerAngles = new Vector3(0f, 0f, 90f);
         SetToInitialRotation(); 

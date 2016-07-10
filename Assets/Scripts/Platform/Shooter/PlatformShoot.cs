@@ -64,6 +64,13 @@ public class PlatformShoot : FrameStateObject
         return false;
     }
 
+    public bool IsTouchOnGizmo(Vector2 firstTouch, DirectionVector shootDirection)
+    {
+        // Can be added collision layers only with the gizmo
+        RaycastHit2D hit = Physics2D.Raycast(firstTouch + shootDirection.direction, Vector2.zero, Mathf.Epsilon);
+        return hit.transform != null;
+    }
+
     public bool IsDirectionValid(DirectionVector currentTouch)
     {
         return currentTouch.magnitudeOfDir > MinDistanceOfTouch && currentTouch.direction.y < - MinDistanceOfTouch;
@@ -85,14 +92,14 @@ public class PlatformShoot : FrameStateObject
         gizmo = null;
     }
 
-    public void DrawGizmo(Vector2 firstTouch, DirectionVector currentTouch, bool dragZoneActive = false)
+    public void DrawGizmo(Vector2 firstTouch, DirectionVector shootDirection, bool dragZoneActive = false)
     {
         if (gizmo == null)
             ChooseGizmo();
 
-        bool isAllowed = IsDirectionValid(currentTouch);
+        bool isAllowed = IsTouchOnGizmo(firstTouch, shootDirection);
 
-        gizmo.PositionObject(firstTouch, firstTouch + currentTouch.direction);
+        gizmo.PositionObject(firstTouch, firstTouch + shootDirection.direction);
         gizmo.SetState(isAllowed);
 
         if (dragZoneActive)
@@ -105,15 +112,25 @@ public class PlatformShoot : FrameStateObject
     public void DrawTrajecotry(DirectionVector shootDir)
     {
         bool isAllowedShot = IsDirectionValid(shootDir);
+        ActivateTrajectory(shootDir, isAllowedShot);
+    }
 
-        shootTraject.Enable();
-        shootTraject.SetPointsState(isAllowedShot);
-        shootTraject.Calculate(shootDir, Position2D, ShootForceMultiplier);
+    public void DrawTrajecotry(Vector2 firstTouch, DirectionVector shootDir)
+    {
+        bool isAllowedShot = IsTouchOnGizmo(firstTouch, shootDir);
+        ActivateTrajectory(shootDir, isAllowedShot);
     }
 
     public void ReleaseTrajectory()
     {
         shootTraject.Disable();
+    }
+
+    private void ActivateTrajectory(DirectionVector shootDir, bool isAllowedShot)
+    {
+        shootTraject.Enable();
+        shootTraject.SetPointsState(isAllowedShot);
+        shootTraject.Calculate(shootDir, Position2D, ShootForceMultiplier);
     }
 
     private void ChooseGizmo()
