@@ -22,9 +22,9 @@ public class DragTouch : IFrameStates
         }
         else if (TouchInput.TouchUp())
         {
-            platform.ReleaseTrajectory();
-            platform.ReleaseGizmo();
             ValidateShoot();
+            platform.ReleaseGizmo();
+            platform.ReleaseTrajectory();
         }
     }
 
@@ -32,7 +32,8 @@ public class DragTouch : IFrameStates
     {
         DirectionVector calcShootDir = platform.GetCalculatedShoot(firstTouchedPos);
         shootDir = lerpShootDir ? LerpShootDir(shootDir, calcShootDir) : calcShootDir;
-        platform.DrawTrajecotry(shootDir);
+
+        platform.DrawTrajecotry(firstTouchedPos, shootDir);
         platform.DrawGizmo(firstTouchedPos, calcShootDir, true);
     }
 
@@ -45,9 +46,7 @@ public class DragTouch : IFrameStates
 
     private void ValidateShoot()
     {
-        DirectionVector calcShootDir = platform.GetCalculatedShoot(firstTouchedPos);
-
-        if (platform.IsDirectionValid(calcShootDir))
+        if (platform.IsTouchOnGizmo(firstTouchedPos, shootDir))
         {
             DirectionVector shVal = new DirectionVector(shootDir.InvertedDirection(), shootDir.magnitudeOfDir);
             platform.ChangeState(new ReleaseTouch(platform, ref shVal));
