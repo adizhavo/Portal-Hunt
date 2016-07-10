@@ -17,6 +17,8 @@ public class RotatingTerrain : TerrainChanger
 
     public override void AnimateEntry(Collision2D coll)
     {
+        if (terrainState.Equals(ObjectState.Open)) LeanTween.pause(gameObject);
+
         gameObject.SetActive(true);
 
         StartPivot.transform.localScale = new Vector3(0f, 1f, 1f);

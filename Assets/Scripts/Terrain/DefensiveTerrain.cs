@@ -8,6 +8,8 @@ public class DefensiveTerrain : TerrainChanger
 
     public override void AnimateEntry(Collision2D coll)
     {
+        if (terrainState.Equals(ObjectState.Open)) LeanTween.pause(gameObject);
+
         gameObject.SetActive(true);
         FirstBlock.transform.localScale = new Vector3(0f, 1f, 1f);
         SecondBlock.transform.localScale = new Vector3(0f, 1f, 1f);
