@@ -9,7 +9,7 @@ public class ShooterTrajectory
 
     private string factoryCallCode = "ShootTrajectories";
     private float SampleInterval = 5f;
-    private int Samples = 5;
+    private int Samples = 7;
 
     public ShooterTrajectory()
     {
