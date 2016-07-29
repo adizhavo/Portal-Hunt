@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class AIDatabase : MonoBehaviour
 {
@@ -17,9 +18,19 @@ public class AIDatabase : MonoBehaviour
         Init();
     }
 
+    private void OnDestroy()
+    {
+        string learnedData = JsonConvert.SerializeObject(shots);
+        PlayerPrefs.SetString("AI", learnedData);
+    }
+
     protected virtual void Init()
     {
-        
+        string learnedData = PlayerPrefs.GetString("AI");
+        if (!string.IsNullOrEmpty(learnedData))
+        {
+            shots = JsonConvert.DeserializeObject<List<StateShots>>(learnedData);
+        }
     }
 
     public void LearnShot(DirectionVector shotDir, PlatformPos shotPos, int mapState)
