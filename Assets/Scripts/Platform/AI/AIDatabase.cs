@@ -12,7 +12,9 @@ public class AIDatabase : MonoBehaviour
 
     private List<StateShots> shots = new List<StateShots>();
 
-    private void Awake()
+    private string dataPath = "LearnedData.txt";
+
+    private void Start()
     {
         instance = this;
         Init();
@@ -21,12 +23,12 @@ public class AIDatabase : MonoBehaviour
     private void OnDestroy()
     {
         string learnedData = JsonConvert.SerializeObject(shots);
-        PlayerPrefs.SetString("AI", learnedData);
+        ResourcesAccessor.SaveTo(dataPath, learnedData);
     }
 
     protected virtual void Init()
     {
-        string learnedData = PlayerPrefs.GetString("AI");
+        string learnedData = ResourcesAccessor.LoadFrom(dataPath);
         if (!string.IsNullOrEmpty(learnedData))
         {
             shots = JsonConvert.DeserializeObject<List<StateShots>>(learnedData);
