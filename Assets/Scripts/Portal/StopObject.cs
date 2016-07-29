@@ -16,7 +16,7 @@ public class StopObject : MonoBehaviour {
 
         if (stoppable != null)
         {
-            stoppable.StopForSec(StopTime);
+            stoppable.StopForSec(stoppable.reloadTime);
         }
     }
 }

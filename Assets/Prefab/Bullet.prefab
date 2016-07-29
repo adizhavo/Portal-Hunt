@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownGizmo: {fileID: 11435620}
+  ReloadTime: 2
   damage: 1
 --- !u!212 &21222004
 SpriteRenderer:

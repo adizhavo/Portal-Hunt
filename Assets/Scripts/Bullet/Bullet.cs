@@ -5,6 +5,12 @@ public class Bullet : MonoBehaviour, Stoppable, Damagable
 {
     public CooldownGizmos cooldownGizmo;
 
+    [SerializeField] private float ReloadTime;
+    public float reloadTime
+    { 
+        get { return ReloadTime; }
+    }
+
     public PlayerType Type {get; set;}
 
     public Rigidbody2D RigidBody
