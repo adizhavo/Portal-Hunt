@@ -31,9 +31,9 @@ public class PlatformPositionReader
     private Position GetXPosition(float currentXPos)
     {
         float zoneXSize = (horizontal.max - horizontal.min) / 3f;
-        if (currentXPos > horizontal.min + 2 * zoneXSize) return Position.Right;
+        if (currentXPos > horizontal.min + 2 * zoneXSize) return Position.Left;
         else if (currentXPos > horizontal.min + zoneXSize) return Position.Middle;
-        else return Position.Left;
+        else return Position.Right;
     }
 
     private Position GetYPosition(float currentYPos)

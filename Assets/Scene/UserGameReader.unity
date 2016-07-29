@@ -1260,7 +1260,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 404321456}
   m_LocalRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
-  m_LocalPosition: {x: 7, y: 4, z: 0}
+  m_LocalPosition: {x: 1.75, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 160829938}
@@ -1947,6 +1947,7 @@ GameObject:
   - 60: {fileID: 552162367}
   - 114: {fileID: 552162366}
   - 114: {fileID: 552162368}
+  - 114: {fileID: 552162370}
   m_Layer: 0
   m_Name: Portal A
   m_TagString: Untagged
@@ -2021,6 +2022,20 @@ MonoBehaviour:
   initHp: 6
   rigeneration: 0.05
   HealthScaler: {fileID: 2057920530}
+--- !u!114 &552162370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 552162364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad41c508adbc4a278363947a1e3ff63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementAmplitude: -2
+  movementFrequency: 1.5
+  movementSpeed: 1
 --- !u!1 &557509140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,7 +2364,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 583230881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 7, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 557509141}
@@ -2407,7 +2422,7 @@ MonoBehaviour:
     max: 2
   minDistToChange: 1
   rotationSpeed: 0.01
-  movementSpeed: 0.5
+  movementSpeed: 0
 --- !u!114 &583230886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3475,7 +3490,7 @@ MonoBehaviour:
     max: 2
   minDistToChange: 1
   rotationSpeed: 0.01
-  movementSpeed: 0.5
+  movementSpeed: 0
 --- !u!114 &1042543640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,7 +3516,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1042543637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: -7, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 348818428}
@@ -3830,6 +3845,92 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 0.191}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &1232300583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1232300584}
+  - 61: {fileID: 1232300587}
+  - 114: {fileID: 1232300586}
+  - 212: {fileID: 1232300585}
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232300584
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232300583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalScale: {x: 10, y: 20, z: 10}
+  m_Children: []
+  m_Father: {fileID: 1914405020}
+  m_RootOrder: 3
+--- !u!212 &1232300585
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232300583}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!114 &1232300586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232300583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b02c0f174794fa8a371388ad320863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StopTime: 5
+--- !u!61 &1232300587
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232300583}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.00026042463, y: -0.0011389256}
+  serializedVersion: 2
+  m_Size: {x: 0.304387, y: 0.3037984}
 --- !u!1 &1244372708
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,6 +3942,7 @@ GameObject:
   - 60: {fileID: 1244372711}
   - 114: {fileID: 1244372710}
   - 114: {fileID: 1244372712}
+  - 114: {fileID: 1244372713}
   m_Layer: 0
   m_Name: Portal B
   m_TagString: Untagged
@@ -3915,6 +4017,20 @@ MonoBehaviour:
   initHp: 6
   rigeneration: 0.05
   HealthScaler: {fileID: 1804877642}
+--- !u!114 &1244372713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1244372708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad41c508adbc4a278363947a1e3ff63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementAmplitude: 2
+  movementFrequency: 1.5
+  movementSpeed: 1
 --- !u!1 &1289129398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,7 +5005,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1660395050}
   m_LocalRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
-  m_LocalPosition: {x: -7, y: 4, z: 0}
+  m_LocalPosition: {x: -1.75, y: -0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1062597316}
@@ -5369,6 +5485,7 @@ Transform:
   - {fileID: 66886382}
   - {fileID: 768465048}
   - {fileID: 571287647}
+  - {fileID: 1232300584}
   m_Father: {fileID: 1959409627}
   m_RootOrder: 2
 --- !u!1 &1920833524
@@ -5899,8 +6016,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2045415940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_Children:
   - {fileID: 1413744583}
   - {fileID: 1733599118}

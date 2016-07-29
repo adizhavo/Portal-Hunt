@@ -84,7 +84,11 @@ public class StateShots
         {
             Position xPos = shotsForState[i].shotPos.xPos;
             Position yPos = shotsForState[i].shotPos.yPos;
-            if(shotPos.xPos.Equals(xPos) && shotPos.yPos.Equals(yPos)) return shotsForState[i];
+            if(shotPos.xPos.Equals(xPos) && shotPos.yPos.Equals(yPos)) 
+            {
+//                Debug.Log(shotsForState[i].GetRandomDirection());
+                return shotsForState[i];
+            }
         }
 
         LearnedShots newShot = new LearnedShots(shotPos);

@@ -69,13 +69,14 @@ public class PlatformShoot : FrameStateObject
     public bool IsTouchOnGizmo(Vector2 firstTouch, DirectionVector shootDirection)
     {
         // Can be added collision layers only with the gizmo
-        RaycastHit2D hit = Physics2D.Raycast(firstTouch + shootDirection.direction, Vector2.zero, Mathf.Epsilon);
-        return hit.transform != null;
+//        RaycastHit2D hit = Physics2D.Raycast(firstTouch + shootDirection.direction, Vector2.zero, Mathf.Epsilon);
+//        return hit.transform != null;
+        return true;
     }
 
     public bool IsDirectionValid(DirectionVector currentTouch)
     {
-        return currentTouch.magnitudeOfDir > MinDistanceOfTouch && currentTouch.direction.y < - MinDistanceOfTouch;
+        return true; //currentTouch.magnitudeOfDir > MinDistanceOfTouch && currentTouch.direction.y < - MinDistanceOfTouch;
     }
 
     public DirectionVector GetCalculatedShoot(Vector2 touchPos)
