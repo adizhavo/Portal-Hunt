@@ -10,7 +10,7 @@ public abstract class FrameStateObject : MonoBehaviour
 
     private void Update()
     {
-        currentState.StateFrameCheck();
+       currentState.StateFrameCheck();
     }
 
     public void ChangeState(IFrameStates newState)

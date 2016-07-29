@@ -24,6 +24,8 @@ public class PlatformAIShoot : PlatformShoot {
 
     private void Shoot()
     {
+        if (Main.activeState.Equals(GameState.Stop)) return;
+
         PlatformPos currentPos = posReader.GetPosition(Position2D);
         int currentMapState = MapStateAccessor.Instance.GetActiveState();
         DirectionVector shootVector = AIDatabase.Instance.GetShot(currentPos, currentMapState);

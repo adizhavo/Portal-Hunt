@@ -39,6 +39,8 @@ public class PlatformShoot : FrameStateObject
 
     public virtual void Shoot(DirectionVector dirVect)
     {
+        if (Main.activeState.Equals(GameState.Stop)) return;
+
         Bullet bullet = bulletContainer.GetAvailableBullet();
 
         if (bullet != null)

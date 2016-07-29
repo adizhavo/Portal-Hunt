@@ -16,6 +16,9 @@ public class PortalHealth : MonoBehaviour {
     [SerializeField] protected float initHp;
     [SerializeField] protected float rigeneration;
     [SerializeField] protected Transform HealthScaler;
+
+    public delegate void Die();
+    public static event Die OnPlayerDied;
   
     protected float currentHp;
 
@@ -34,6 +37,9 @@ public class PortalHealth : MonoBehaviour {
     public void ApplyDamage(float damage)
     {
         currentHp -= damage;
+
+        if (currentHp < 0 && OnPlayerDied != null)
+            OnPlayerDied();
     }
 
     // speed is a size between 0-1 per second

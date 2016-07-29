@@ -10,6 +10,11 @@ public class SessionTimer : MonoBehaviour
     private DateTime startDateTime;
     private float totalTimer;
 
+    public float CurrentTime
+    {
+        get { return totalTimer; }
+    }
+
     private enum State
     {
         Ready, 
@@ -49,7 +54,6 @@ public class SessionTimer : MonoBehaviour
 	private void Awake () 
     {
         ResetTimer();
-        StartTimer();
 	}
 
 	private void Update () 

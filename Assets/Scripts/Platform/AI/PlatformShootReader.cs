@@ -14,6 +14,8 @@ public class PlatformShootReader : PlatformShoot {
 
 	public override void Shoot(DirectionVector dirVect)
     {
+        if (Main.activeState.Equals(GameState.Stop)) return;
+
         base.Shoot(dirVect);
         PlatformPos currentPos = posReader.GetPosition(Position2D);
         int currentMapState = MapStateAccessor.Instance.GetActiveState();
