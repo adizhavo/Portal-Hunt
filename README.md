@@ -4,6 +4,8 @@
 
 The current game-play makes impossible to aim for a Realtime PvP game, but async multiplayer is achievable with the current AI solution. ( users can train their own AI's ).
 
+[Gameplay video below]
+
 [![Poratl Hunt](http://img.youtube.com/vi/laEC4n8I4Sw/0.jpg)](https://youtu.be/laEC4n8I4Sw)
 
 [![Poratl Hunt](http://img.youtube.com/vi/J_UwITY-h8s/0.jpg)](https://youtu.be/J_UwITY-h8s)
